@@ -29,12 +29,11 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             color: Colors.white,
             iconTheme: IconThemeData(color: Colors.purple),
-          )
-        ),
+          )),
       title: 'APP movil 181',
       navigatorKey: router.navigatorKey,
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.SPLASH,
+      initialRoute: Routes.PROJECT,
       routes: appRoutes,
       navigatorObservers: [
         router.observer,
