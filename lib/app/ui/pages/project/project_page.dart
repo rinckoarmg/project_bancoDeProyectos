@@ -62,29 +62,46 @@ class ProjectPage extends StatelessWidget {
                           maxLines: 12,
                         ),
                       ),
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          child: FadeInImage(
-                            height: 75,
-                            placeholder: AssetImage('assets/jar-loading.gif'),
-                            image: AssetImage(
-                                'assets/${projectService.selectedProject.category}'),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                        child: Row(
+                            children: [
+                              FadeInImage(
+                                height: 75,
+                                placeholder: AssetImage('assets/jar-loading.gif'),
+                                image: AssetImage(
+                                    'assets/${projectService.selectedProject.category}'),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: Text(
+                                    projectService.selectedProject.category,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Monserrat',
+                                      fontSize: 15,
+                                      color: Colors.purple[800],
+                                    ),
+                                    maxLines: 3,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
                     ],
                   )),
             )),
       ]),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _viewContact(
-              context,
-              projectService.selectedProject.contact,
-              projectService.selectedProject.email,
-              projectService.selectedProject.web),
-          child: Icon(Icons.contact_mail)),
+        onPressed: () => _viewContact(
+          context,
+          projectService.selectedProject.contact,
+          projectService.selectedProject.email,
+          projectService.selectedProject.web),
+        child: Icon(Icons.contact_mail)),
     );
   }
 
