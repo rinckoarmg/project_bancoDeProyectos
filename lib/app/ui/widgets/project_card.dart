@@ -5,7 +5,6 @@ class ProjectCard extends StatelessWidget {
   final Projects project;
 
   const ProjectCard({Key? key, required this.project}) : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +29,11 @@ class ProjectCard extends StatelessWidget {
         child: Stack(
           children: [
             _CardImage(project.image),
-            _ProjectDetails(),
+            _ProjectDetails(project.name),
             Positioned(
               bottom: 5,
               right: 5,
-              child: _CategorieIcon()
+              child: _CategorieIcon(project.category)
             )
           ],
           
@@ -46,9 +45,9 @@ class ProjectCard extends StatelessWidget {
 }
 
 class _CategorieIcon extends StatelessWidget {
-  const _CategorieIcon({
-    Key? key,
-  }) : super(key: key);
+  final String? innerImage;
+
+  const _CategorieIcon(this.innerImage);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,7 @@ class _CategorieIcon extends StatelessWidget {
           borderRadius: BorderRadius.only(bottomRight: Radius.circular(55),topLeft: Radius.circular(20)),
           child: FadeInImage(
               placeholder: AssetImage('assets/jar-loading.gif'),
-              image: AssetImage('assets/sdg-es-01.png'),
+              image: AssetImage('assets/${innerImage}'),
               fit: BoxFit.cover,
             ),
         ),
@@ -77,9 +76,9 @@ class _CategorieIcon extends StatelessWidget {
 }
 
 class _ProjectDetails extends StatelessWidget {
-  const _ProjectDetails({
-    Key? key,
-  }) : super(key: key);
+  final String title;
+
+  const _ProjectDetails(this.title);
 
  @override
   Widget build(BuildContext context) {
@@ -98,7 +97,7 @@ class _ProjectDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Este es el nombre mas largo del mundo mundial',
+              title,
               style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
