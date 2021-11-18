@@ -94,7 +94,7 @@ class ProjectPage extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             title: Text(
-              "Connect with this project!",
+              "Conectate con este proyecto!",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Monserrat',
@@ -110,7 +110,7 @@ class ProjectPage extends StatelessWidget {
                   children: [
                     SizedBox(height: 25),
                     Text(
-                      "Phone: ",
+                      "Teléfono: ",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Monserrat',
