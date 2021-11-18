@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movil181/app/domain/models/models.dart';
 
 class ProjectCard extends StatelessWidget {
-  //const ProjectCard({Key? key}) : super(key: key);
+  final Projects project;
+
+  const ProjectCard({Key? key, required this.project}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class ProjectCard extends StatelessWidget {
         height: 200,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.black26,
@@ -25,7 +29,7 @@ class ProjectCard extends StatelessWidget {
         
         child: Stack(
           children: [
-            _CardImage(),
+            _CardImage(project.image),
             _ProjectDetails(),
             Positioned(
               bottom: 5,
@@ -49,23 +53,24 @@ class _CategorieIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       child: FittedBox(
         fit: BoxFit.contain,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child:
-            FadeInImage(
-            placeholder: AssetImage('assets/jar-loading.gif'),
-            image: AssetImage('assets/Imagen1C.png'),
-            fit: BoxFit.cover,
-          ),
-        )
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(55),topLeft: Radius.circular(20)),
+          child: FadeInImage(
+              placeholder: AssetImage('assets/jar-loading.gif'),
+              image: AssetImage('assets/sdg-es-01.png'),
+              fit: BoxFit.cover,
+            ),
+        ),
       ),
+      
       width: 50,
-      height:50,
+      height: 50,
       decoration: BoxDecoration(
-        color: Colors.yellow[800],
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(25), bottomRight: Radius.circular(25))
+        color: Colors.purple,
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(10))
       ),
     );
   }
@@ -76,46 +81,56 @@ class _ProjectDetails extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  @override
+ @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FittedBox(
-        fit: BoxFit.contain,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Text('Nombre del Proyecto',
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)
-          )
+    return Padding(
+      padding: EdgeInsets.only(right: 50),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        width: double.infinity,
+        height:40,
+        decoration: BoxDecoration(
+          color: Colors.black38,
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topLeft: Radius.circular(25))
         ),
-      ),
-      width: 200,
-      height:40,
-      decoration: BoxDecoration(
-        color: Colors.deepPurple,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(25), bottomRight: Radius.circular(25))
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Este es el nombre mas largo del mundo mundial',
+              style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        )
       ),
     );
   }
 }
 
 class _CardImage extends StatelessWidget {
-  const _CardImage({
-    Key? key,
-  }) : super(key: key);
+  final String? url;
+
+  const _CardImage(this.url);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         width: double.infinity,
-        //height: 300,
-        child:
-        FadeInImage(
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: AssetImage('assets/no-image.png'),
-          fit: BoxFit.cover,
-        ),
+        child: url == null
+          ? Image(
+            image: AssetImage('assets/no-image.png'),
+            fit: BoxFit.cover
+            )
+          : FadeInImage(
+            placeholder: AssetImage('assets/jar-loading.gif'),
+            image: NetworkImage(url!),
+            fit: BoxFit.cover,
+          ),
       ),
     );
   }

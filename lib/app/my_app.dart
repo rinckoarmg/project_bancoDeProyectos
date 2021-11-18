@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'APP movil 181',
       navigatorKey: router.navigatorKey,
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.PROJECT,
+      initialRoute: Routes.HOME,
       routes: appRoutes,
       navigatorObservers: [
         router.observer,
