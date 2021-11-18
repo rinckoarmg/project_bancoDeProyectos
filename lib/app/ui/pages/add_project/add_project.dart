@@ -8,6 +8,12 @@ class AddProjectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    var textStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Monserrat',
+      fontSize: 20,
+      color: Colors.purple[800],
+    );
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: Stack(children: [
@@ -18,7 +24,7 @@ class AddProjectPage extends StatelessWidget {
               child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   width: double.infinity,
-                  height: size.height * 0.7,
+                  //height: size.height * 0.7,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
@@ -34,33 +40,79 @@ class AddProjectPage extends StatelessWidget {
                     children: [
                       Container(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
+                          padding:
+                              EdgeInsets.only(top: 20, right: 25, left: 25),
                           child: Text(
-                            'nombre',
+                            'Nombre del proyecto',
                             textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Monserrat',
-                              fontSize: 24,
-                              color: Colors.purple[800],
-                            ),
+                            style: textStyle,
                           ),
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                        child: Text(
-                          'descripcion',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontFamily: 'Monserrat',
-                            fontSize: 15,
-                            color: Colors.black54,
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 20, right: 25, left: 25),
+                          child: Text(
+                            'Descripción',
+                            textAlign: TextAlign.left,
+                            style: textStyle,
+                            maxLines: 10,
                           ),
-                          maxLines: 12,
                         ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 20, right: 25, left: 25),
+                          child: Text(
+                            'Teléfono de contacto',
+                            textAlign: TextAlign.left,
+                            style: textStyle,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 20, right: 25, left: 25),
+                          child: Text(
+                            'Email',
+                            textAlign: TextAlign.left,
+                            style: textStyle,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 20, right: 25, left: 25),
+                          child: Text(
+                            'Website',
+                            textAlign: TextAlign.left,
+                            style: textStyle,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextField(),
                       ),
                       Center(
                         child: Padding(
