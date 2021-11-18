@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1068024049875",
+    "project_id": "movil181app",
+    "storage_bucket": "movil181app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068024049875:android:8b822668c0ea06c00ea426",
+        "android_client_info": {
+          "package_name": "com.example.movil181"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068024049875-78db8ckji82gaqmjho40a3invlpuhf90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMW9hGcd49fTUJYCBjmdnwZRQESjwuj44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068024049875-78db8ckji82gaqmjho40a3invlpuhf90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
