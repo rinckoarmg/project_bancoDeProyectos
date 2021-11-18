@@ -7,18 +7,18 @@ class AddProjectPage extends StatelessWidget {
   const AddProjectPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final projectService = Provider.of<ProjectService>(context);
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: Stack(children: [
         Container(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Padding(
               padding: EdgeInsets.only(left: 20, right: 20, bottom: 80),
               child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   width: double.infinity,
-                  height: 400,
+                  height: size.height * 0.7,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
@@ -32,12 +32,13 @@ class AddProjectPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Center(
+                      Container(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           child: Text(
-                            projectService.selectedProject.name,
+                            'nombre',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Monserrat',
@@ -51,7 +52,7 @@ class AddProjectPage extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                         child: Text(
-                          projectService.selectedProject.decription,
+                          'descripcion',
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             fontFamily: 'Monserrat',
@@ -68,8 +69,7 @@ class AddProjectPage extends StatelessWidget {
                           child: FadeInImage(
                             height: 75,
                             placeholder: AssetImage('assets/jar-loading.gif'),
-                            image: AssetImage(
-                                'assets/${projectService.selectedProject.category}'),
+                            image: AssetImage('assets/no-image.png'),
                           ),
                         ),
                       ),
@@ -77,108 +77,8 @@ class AddProjectPage extends StatelessWidget {
                   )),
             )),
       ]),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () => _viewContact(
-              context,
-              projectService.selectedProject.contact,
-              projectService.selectedProject.email,
-              projectService.selectedProject.web),
-          child: Icon(Icons.contact_mail)),
+      floatingActionButton:
+          FloatingActionButton(onPressed: () {}, child: Icon(Icons.save)),
     );
-  }
-
-  _viewContact(BuildContext context, String? tel, String? email, String? web) {
-    showDialog(
-        context: context,
-        //para cerrar la alerta haciendo click afuera:
-        barrierDismissible: false,
-        builder: (context) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            title: Text(
-              "Conectate con este proyecto!",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Monserrat',
-                fontSize: 22,
-                color: Colors.purple[800],
-              ),
-            ),
-            content: Column(
-              //Para que se adapte el largo al contenido que tiene:
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(height: 25),
-                    Text(
-                      "Teléfono: ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Monserrat',
-                        fontSize: 18,
-                        color: Colors.purple[800],
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Text(tel!),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    Text(
-                      "Email: ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Monserrat',
-                        fontSize: 18,
-                        color: Colors.purple[800],
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Text(email!),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    Text(
-                      "Web: ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Monserrat',
-                        fontSize: 18,
-                        color: Colors.purple[800],
-                      ),
-                    ),
-                    SizedBox(width: 15),
-                    Text(web!),
-                  ],
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              // TextButton(
-              //     onPressed: () => Navigator.of(context).pop(),
-              //     child:
-              //         Text('Cancelar', style: TextStyle(color: Colors.black))),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Ok',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Monserrat',
-                      fontSize: 18,
-                      color: Colors.purple[800],
-                    ),
-                  )),
-            ],
-          );
-        });
   }
 }

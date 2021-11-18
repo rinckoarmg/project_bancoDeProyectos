@@ -16,22 +16,21 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: Padding(
-        padding: EdgeInsets.only(bottom: 50),
-        child: ListView.builder(
-          itemCount: projectService.listProjects.length,
-          itemBuilder: (BuildContext context, int index) => GestureDetector(
-            onTap: (){
-              projectService.selectedProject = projectService.listProjects[index];
-              Navigator.pushNamed(context, Routes.PROJECT);
-            },
-            child: ProjectCard(
-              project: projectService.listProjects[index],
-            ),
-          )
-        )
-      ),
+          padding: EdgeInsets.only(bottom: 50),
+          child: ListView.builder(
+              itemCount: projectService.listProjects.length,
+              itemBuilder: (BuildContext context, int index) => GestureDetector(
+                    onTap: () {
+                      projectService.selectedProject =
+                          projectService.listProjects[index];
+                      Navigator.pushNamed(context, Routes.PROJECT);
+                    },
+                    child: ProjectCard(
+                      project: projectService.listProjects[index],
+                    ),
+                  ))),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, Routes.ADDPROJECT),
         child: Icon(Icons.add),
         backgroundColor: Colors.purple,
       ),
