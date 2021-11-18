@@ -3,15 +3,14 @@ import 'package:movil181/app/data/data_source/remote/project_service.dart';
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
-class ProjectPage extends StatelessWidget {
-  const ProjectPage({Key? key}) : super(key: key);
+class AddProjectPage extends StatelessWidget {
+  const AddProjectPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final projectService = Provider.of<ProjectService>(context);
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: Stack(children: [
-        _backgroungImage(imagen: projectService.selectedProject.image),
         Container(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -181,25 +180,5 @@ class ProjectPage extends StatelessWidget {
             ],
           );
         });
-  }
-}
-
-class _backgroungImage extends StatelessWidget {
-  final String? imagen;
-
-  const _backgroungImage({Key? key, this.imagen}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    return Container(
-      color: Colors.green,
-      width: double.infinity,
-      height: size.height * 0.40,
-      child: FadeInImage(
-          fit: BoxFit.cover,
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage(imagen!)),
-    );
   }
 }
