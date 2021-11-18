@@ -13,6 +13,7 @@ class Projects {
     required this.name,
     this.web,
     this.id,
+    this.email,
   });
 
   String category;
@@ -22,19 +23,20 @@ class Projects {
   String name;
   String? web;
   String? id;
+  String? email;
 
   factory Projects.fromJson(String str) => Projects.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory Projects.fromMap(Map<String, dynamic> json) => Projects(
-        category: json["category"],
-        contact: json["contact"],
-        decription: json["decription"],
-        image: json["image"],
-        name: json["name"],
-        web: json["web"],
-      );
+      category: json["category"],
+      contact: json["contact"],
+      decription: json["decription"],
+      image: json["image"],
+      name: json["name"],
+      web: json["web"],
+      email: json["email"]);
 
   Map<String, dynamic> toMap() => {
         "category": category,
@@ -43,5 +45,6 @@ class Projects {
         "image": image,
         "name": name,
         "web": web,
+        "email": email,
       };
 }
