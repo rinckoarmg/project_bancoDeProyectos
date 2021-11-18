@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:movil181/app/data/data_source/remote/project_service.dart';
 import 'package:movil181/app/ui/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class ProjectPage extends StatelessWidget {
   const ProjectPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final projectService = Provider.of<ProjectService>(context);
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: Stack(children: [
-        _backgroungImage(),
+        _backgroungImage(imagen: projectService.selectedProject.image),
         Container(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -16,7 +19,7 @@ class ProjectPage extends StatelessWidget {
               child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   width: double.infinity,
-                  height: 360,
+                  height: 400,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
@@ -35,7 +38,7 @@ class ProjectPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
                           child: Text(
-                            "project.title",
+                            projectService.selectedProject.name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Monserrat',
@@ -49,7 +52,7 @@ class ProjectPage extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                         child: Text(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                          projectService.selectedProject.decription,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             fontFamily: 'Monserrat',
@@ -63,15 +66,21 @@ class ProjectPage extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
-                          child: Text(
-                            "category",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Monserrat',
-                              fontSize: 20,
-                              color: Colors.purple[800],
-                            ),
+                          child: FadeInImage(
+                            height: 75,
+                            placeholder: AssetImage('assets/jar-loading.gif'),
+                            image: AssetImage(
+                                'assets/${projectService.selectedProject.category}'),
                           ),
+                          // Text(
+                          //   projectService.selectedProject.category,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //     fontFamily: 'Monserrat',
+                          //     fontSize: 20,
+                          //     color: Colors.purple[800],
+                          //   ),
+                          // ),
                         ),
                       ),
                     ],
@@ -79,12 +88,16 @@ class ProjectPage extends StatelessWidget {
             )),
       ]),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _viewContact(context),
+          onPressed: () => _viewContact(
+              context,
+              projectService.selectedProject.contact,
+              projectService.selectedProject.email,
+              projectService.selectedProject.web),
           child: Icon(Icons.contact_mail)),
     );
   }
 
-  _viewContact(BuildContext context) {
+  _viewContact(BuildContext context, String? tel, String? email, String? web) {
     showDialog(
         context: context,
         //para cerrar la alerta haciendo click afuera:
@@ -119,7 +132,7 @@ class ProjectPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 15),
-                    Text('Aquí va el teléfono'),
+                    Text(tel!),
                   ],
                 ),
                 SizedBox(height: 15),
@@ -135,7 +148,7 @@ class ProjectPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 15),
-                    Text('Aquí va el email'),
+                    Text(email!),
                   ],
                 ),
                 SizedBox(height: 15),
@@ -151,7 +164,7 @@ class ProjectPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 15),
-                    Text('Aqui va la web'),
+                    Text(web!),
                   ],
                 ),
               ],
@@ -181,11 +194,13 @@ class ProjectPage extends StatelessWidget {
 }
 
 class _backgroungImage extends StatelessWidget {
-  const _backgroungImage({Key? key}) : super(key: key);
+  final String? imagen;
 
+  const _backgroungImage({Key? key, this.imagen}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Container(
       color: Colors.green,
       width: double.infinity,
@@ -193,7 +208,7 @@ class _backgroungImage extends StatelessWidget {
       child: FadeInImage(
           fit: BoxFit.cover,
           placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://picsum.photos/id/230/400/300')),
+          image: NetworkImage(imagen!)),
     );
   }
 }
