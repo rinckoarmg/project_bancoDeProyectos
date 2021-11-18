@@ -90,7 +90,7 @@ class _ProjectDetails extends StatelessWidget {
         height:40,
         decoration: BoxDecoration(
           color: Colors.black38,
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(25),topLeft: Radius.circular(25))
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),topLeft: Radius.circular(20))
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
