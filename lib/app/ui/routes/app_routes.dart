@@ -13,6 +13,5 @@ Map<String, Widget Function(BuildContext)> get appRoutes => {
       Routes.REGISTER: (_) => const RegisterPage(),
       Routes.HOME: (_) => const HomePage(),
       Routes.PROJECT: (_) => const ProjectPage(),
-      Routes.PROJECT: (_) => const ProjectPage(),
       Routes.ADDPROJECT: (_) => const AddProjectPage(),
     };
