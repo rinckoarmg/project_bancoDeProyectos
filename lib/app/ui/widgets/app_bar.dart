@@ -15,24 +15,28 @@ class AppBarGeneral extends StatelessWidget {
   PreferredSizeWidget appBarG() {
     return AppBar(
       elevation: 0.5,
-      title: Text(
-        'Banco de Proyectos',
-        textAlign: TextAlign.start,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Monserrat',
-          fontSize: 18,
-          color: Colors.deepPurple,
+      title: Center(
+        child: Text(
+          'Banco de Proyectos',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Monserrat',
+            fontSize: 18,
+            color: Colors.deepPurple,
+          ),
         ),
       ),
       actions: <Widget>[
         //AtomsCommon().buttomAppbBar('notifications'),
+        /*
         Container(
           child: IconButton(
             onPressed: () {},
             icon: Icon(Icons.add_to_photos),
           )
         ),
+        */
         Container(
           child: IconButton(
             onPressed: () async {
