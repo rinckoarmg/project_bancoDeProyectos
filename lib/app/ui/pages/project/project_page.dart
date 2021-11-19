@@ -121,7 +121,7 @@ class ProjectPage extends StatelessWidget {
     } if (string == 'sdg-es-04.png') {
       return 'Educación de Calidad';
     } if (string == 'sdg-es-05.png') {
-      return 'Igual de Género';
+      return 'Igualdad de Género';
     } if (string == 'sdg-es-06.png') {
       return 'Agua Limpia y Saneamiento';
     } if (string == 'sdg-es-07.png') {
