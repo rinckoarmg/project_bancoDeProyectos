@@ -87,7 +87,7 @@ class _ProjectDetails extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: double.infinity,
-        height:40,
+        height:50,
         decoration: BoxDecoration(
           color: Colors.black38,
           borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),topLeft: Radius.circular(20))

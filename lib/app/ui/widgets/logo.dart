@@ -12,7 +12,7 @@ class Logo extends StatelessWidget {
     return FadeInImage(
       placeholder: AssetImage('assets/jar-loading.gif'),
       width: 180,
-      image: AssetImage('assets/Imagen1C.png'),
+      image: AssetImage('assets/Imagen1.png'),
     );
   }
 }
