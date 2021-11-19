@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:movil181/app/ui/widgets/widgets.dart';
 
 class AddProjectPage extends StatefulWidget {
@@ -59,14 +61,17 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: 10),
-                        Title(color: Colors.purple,
-                        child: Text('Ingresa tu Proyecto',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Monserrat',
-                          fontSize: 20,
-                          color: Colors.purple[800],
-                        ),)),
+                        Title(
+                            color: Colors.purple,
+                            child: Text(
+                              'Ingresa tu Proyecto',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Monserrat',
+                                fontSize: 20,
+                                color: Colors.purple[800],
+                              ),
+                            )),
                         _categoria(),
                         _pais(),
                         _nombre(),
@@ -82,9 +87,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
         ]),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _mostrarAlert(context),
-        child: Icon(Icons.save)
-      ),
+          onPressed: () => _mostrarAlert(context), child: Icon(Icons.save)),
     );
   }
 
@@ -96,7 +99,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
           padding: EdgeInsets.only(top: 20),
           child: Text(
             'Categoria:',
-              style: TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: 'Monserrat',
               fontSize: 20,
@@ -181,7 +184,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
               maxLines: 15,
               minLines: 1,
               textAlign: TextAlign.justify,
-
             ),
           ),
         ),
@@ -319,55 +321,124 @@ class _AddProjectPageState extends State<AddProjectPage> {
             style: textStyle,
           ),
         ),
-        Center(
+        SizedBox(
+          height: 150,
+          width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            padding: const EdgeInsets.all(20),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: FadeInImage(
+                      placeholder: AssetImage('assets/no-image.png'),
+                      image: AssetImage('assets/no-image.png')),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 33, vertical: 20),
+                  child: IconButton(
+                    //alignment: Alignment.topCenter,
+                    icon: Icon(
+                      Icons.photo_camera_rounded,
+                      size: 50,
+                      color: Colors.deepPurple,
+                    ),
+                    onPressed: () async {
+                      final picker = new ImagePicker();
+                      final PickedFile? pickedFile = (await picker.pickImage(
+                          source: ImageSource.camera,
+                          imageQuality: 100)) as PickedFile?;
+
+                      if (pickedFile == null) {
+                        print('No seleccionó nada');
+                        return;
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
- 
+
+  // Widget _imagen() {
+  //   final textStyle = TextStyle(
+  //     fontWeight: FontWeight.bold,
+  //     fontFamily: 'Monserrat',
+  //     fontSize: 20,
+  //     color: Colors.purple[800],
+  //   );
+  //   return Column(
+  //     //crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Padding(
+  //         padding: EdgeInsets.only(top: 20, right: 25, left: 25),
+  //         child: Text(
+  //           'Imagen',
+  //           textAlign: TextAlign.left,
+  //           style: textStyle,
+  //         ),
+  //       ),
+  //       Padding(
+  //         padding: const EdgeInsets.all(80),
+  //         child: IconButton(
+  //           alignment: Alignment.center,
+  //           icon: Icon(
+  //             Icons.upload,
+  //             size: 50,
+  //             color: Colors.deepPurple,
+  //           ),
+  //           onPressed: () {},
+  //         ),
+  //       )
+  //       //SizedBox(height: 10),
+  //     ],
+  //   );
+  // }
+
   void _mostrarAlert(BuildContext context) {
     showDialog(
-      context: context,
-      //para cerrar la alerta haciendo click afuera:
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          title: Text('Confirmacion',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Monserrat',
-              fontSize: 22,
-              color: Colors.purple[800],
-            )
-          ),
-          content: Text('¿Estas seguro de crear este proyecto?', maxLines: 2,),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancelar', style: TextStyle(color: Colors.black))
+        context: context,
+        //para cerrar la alerta haciendo click afuera:
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            title: Text('Confirmacion',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Monserrat',
+                  fontSize: 22,
+                  color: Colors.purple[800],
+                )),
+            content: Text(
+              '¿Estas seguro de crear este proyecto?',
+              maxLines: 2,
             ),
-            TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'Salvar', 
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Monserrat',
-                fontSize: 18,
-                color: Colors.purple[800],
-              ),
-            )
-            ),
-          ],
-
-        );
-      }
-    );  
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child:
+                      Text('Cancelar', style: TextStyle(color: Colors.black))),
+              TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(
+                    'Salvar',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Monserrat',
+                      fontSize: 18,
+                      color: Colors.purple[800],
+                    ),
+                  )),
+            ],
+          );
+        });
   }
 }
