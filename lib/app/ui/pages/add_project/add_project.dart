@@ -9,7 +9,7 @@ class AddProjectPage extends StatefulWidget {
 }
 
 class _AddProjectPageState extends State<AddProjectPage> {
-  String _opcionSeleccionada = 'Todas las Categorías';
+  String _opcionSeleccionada = 'Fin de la Pobreza';
   final List<String> _categories = [
     'Fin de la Pobreza',
     'Hambre Cero',
@@ -28,7 +28,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
     'Vida de Ecosistemas Terrestres',
     'Paz, Justicia e Instituciones Sólidas',
     'Alianzas para lograr los objetivos',
-    'Todas las Categorías'
   ];
   @override
   Widget build(BuildContext context) {
@@ -59,25 +58,35 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        SizedBox(height: 10),
+                        Title(color: Colors.purple,
+                        child: Text('Ingresa tu Proyecto',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Monserrat',
+                          fontSize: 20,
+                          color: Colors.purple[800],
+                        ),)),
                         _categoria(),
+                        _pais(),
                         _nombre(),
                         _descripcion(),
                         _telefono(),
                         _email(),
                         _web(),
-                        // _pais(),
-                        // _imagen(),
+                        _imagen(),
                         SizedBox(height: 30)
                       ],
                     )),
               )),
         ]),
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () => _mostrarAlert(context), child: Icon(Icons.save)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _mostrarAlert(context),
+        child: Icon(Icons.save)
+      ),
     );
   }
-
 
   Widget _categoria() {
     return Column(
@@ -180,8 +189,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
     );
   }
 
-  Widget _web() {
-    final textStyle = TextStyle(
+  Widget _telefono() {
+    var textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
       fontSize: 20,
@@ -193,7 +202,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Padding(
           padding: EdgeInsets.only(top: 20, right: 25, left: 25),
           child: Text(
-            'Website',
+            'Teléfono de contacto',
             textAlign: TextAlign.left,
             style: textStyle,
           ),
@@ -236,8 +245,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
     );
   }
 
-  Widget _telefono() {
-    var textStyle = TextStyle(
+  Widget _web() {
+    final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
       fontSize: 20,
@@ -249,7 +258,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Padding(
           padding: EdgeInsets.only(top: 20, right: 25, left: 25),
           child: Text(
-            'Teléfono de contacto',
+            'Website',
             textAlign: TextAlign.left,
             style: textStyle,
           ),
@@ -264,12 +273,62 @@ class _AddProjectPageState extends State<AddProjectPage> {
     );
   }
 
-  // Widget _imagen() {}
+  Widget _pais() {
+    final textStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Monserrat',
+      fontSize: 20,
+      color: Colors.purple[800],
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 20, right: 25, left: 25),
+          child: Text(
+            'Pais',
+            textAlign: TextAlign.left,
+            style: textStyle,
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(),
+          ),
+        ),
+      ],
+    );
+  }
 
-  // Widget _pais() {}
-
-  // Widget _categoria() {}  
-
+  Widget _imagen() {
+    final textStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Monserrat',
+      fontSize: 20,
+      color: Colors.purple[800],
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 20, right: 25, left: 25),
+          child: Text(
+            'Imagen',
+            textAlign: TextAlign.left,
+            style: textStyle,
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(),
+          ),
+        ),
+      ],
+    );
+  }
+ 
   void _mostrarAlert(BuildContext context) {
     showDialog(
       context: context,
@@ -287,7 +346,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
               color: Colors.purple[800],
             )
           ),
-          content: Text('¿Estas seguro de crear este proyecto?', maxLines: 1,),
+          content: Text('¿Estas seguro de crear este proyecto?', maxLines: 2,),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),

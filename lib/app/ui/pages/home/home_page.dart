@@ -32,85 +32,86 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           PopupMenuButton<int>(
-              onSelected: (item) => onSelected(context, item),
-              itemBuilder: (context) => [
-                    // const PopupMenuItem(
-                    //   value: 0,
-                    //   child: Text('Ver todos'),
-                    // ),
-                    const PopupMenuItem(
-                      value: 1,
-                      child: Text('Fin de la pobreza'),
-                    ),
-                    const PopupMenuItem(
-                      value: 2,
-                      child: Text('Hambre cero'),
-                    ),
-                    const PopupMenuItem(
-                      value: 3,
-                      child: Text('Salud y bienestar'),
-                    ),
-                    const PopupMenuItem(
-                      value: 4,
-                      child: Text('Educación de calidad'),
-                    ),
-                    const PopupMenuItem(
-                      value: 5,
-                      child: Text('Igualdad de género'),
-                    ),
-                    const PopupMenuItem(
-                      value: 6,
-                      child: Text('Agua limpia y saneamiento'),
-                    ),
-                    const PopupMenuItem(
-                      value: 7,
-                      child: Text('Energía asequible y no contaminante'),
-                    ),
-                    const PopupMenuItem(
-                      value: 8,
-                      child: Text('Trabajo decente y crecimiento económico'),
-                    ),
-                    const PopupMenuItem(
-                      value: 9,
-                      child: Text('Industria, innovación e infraestructura'),
-                    ),
-                    const PopupMenuItem(
-                      value: 10,
-                      child: Text('Reducción de las desigualdades'),
-                    ),
-                    const PopupMenuItem(
-                      value: 11,
-                      child: Text('Ciudades y comunidades sostenibles'),
-                    ),
-                    const PopupMenuItem(
-                      value: 12,
-                      child: Text('Producción y consumo responsables'),
-                    ),
-                    const PopupMenuItem(
-                      value: 13,
-                      child: Text('Acción por el clima'),
-                    ),
-                    const PopupMenuItem(
-                      value: 14,
-                      child: Text('Vida submarina'),
-                    ),
-                    const PopupMenuItem(
-                      value: 15,
-                      child: Text('Vida de ecosistemas terrestres'),
-                    ),
-                    const PopupMenuItem(
-                      value: 16,
-                      child: Text('Paz, justicia e instituciones sólidas'),
-                    ),
-                    const PopupMenuItem(
-                      value: 17,
-                      child: Text('Alianzas para lograr los objetivos'),
-                    ),
-                  ])
+            icon: Icon(Icons.menu),
+            onSelected: (item) => onSelected(context, item),
+            itemBuilder: (context) => [
+                  // const PopupMenuItem(
+                  //   value: 0,
+                  //   child: Text('Ver todos'),
+                  // ),
+                  const PopupMenuItem(
+                    value: 1,
+                    child: Text('Fin de la pobreza'),
+                  ),
+                  const PopupMenuItem(
+                    value: 2,
+                    child: Text('Hambre cero'),
+                  ),
+                  const PopupMenuItem(
+                    value: 3,
+                    child: Text('Salud y bienestar'),
+                  ),
+                  const PopupMenuItem(
+                    value: 4,
+                    child: Text('Educación de calidad'),
+                  ),
+                  const PopupMenuItem(
+                    value: 5,
+                    child: Text('Igualdad de género'),
+                  ),
+                  const PopupMenuItem(
+                    value: 6,
+                    child: Text('Agua limpia y saneamiento'),
+                  ),
+                  const PopupMenuItem(
+                    value: 7,
+                    child: Text('Energía asequible y no contaminante'),
+                  ),
+                  const PopupMenuItem(
+                    value: 8,
+                    child: Text('Trabajo decente y crecimiento económico'),
+                  ),
+                  const PopupMenuItem(
+                    value: 9,
+                    child: Text('Industria, innovación e infraestructura'),
+                  ),
+                  const PopupMenuItem(
+                    value: 10,
+                    child: Text('Reducción de las desigualdades'),
+                  ),
+                  const PopupMenuItem(
+                    value: 11,
+                    child: Text('Ciudades y comunidades sostenibles'),
+                  ),
+                  const PopupMenuItem(
+                    value: 12,
+                    child: Text('Producción y consumo responsables'),
+                  ),
+                  const PopupMenuItem(
+                    value: 13,
+                    child: Text('Acción por el clima'),
+                  ),
+                  const PopupMenuItem(
+                    value: 14,
+                    child: Text('Vida submarina'),
+                  ),
+                  const PopupMenuItem(
+                    value: 15,
+                    child: Text('Vida de ecosistemas terrestres'),
+                  ),
+                  const PopupMenuItem(
+                    value: 16,
+                    child: Text('Paz, justicia e instituciones sólidas'),
+                  ),
+                  const PopupMenuItem(
+                    value: 17,
+                    child: Text('Alianzas para lograr los objetivos'),
+                  ),
+                ])
         ],
       ),
       body: Padding(
-          padding: EdgeInsets.only(bottom: 50),
+          padding: EdgeInsets.only(bottom: 40),
           child: ListView.builder(
               itemCount: projectService.listProjects.length,
               itemBuilder: (BuildContext context, int index) => GestureDetector(
