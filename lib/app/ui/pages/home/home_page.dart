@@ -14,15 +14,17 @@ class HomePage extends StatelessWidget {
     if (projectService.isLoading) return LoadingScreen();
 
     return Scaffold(
-      appBar: AppBarGeneral().appBarG(),
+      appBar: AppBar(
+        title: Text('Dropdown',style: TextStyle(color: Colors.deepPurple),),
+        backgroundColor: Colors.white),
+        
       body: Padding(
           padding: EdgeInsets.only(bottom: 50),
           child: ListView.builder(
               itemCount: projectService.listProjects.length,
               itemBuilder: (BuildContext context, int index) => GestureDetector(
                     onTap: () {
-                      projectService.selectedProject =
-                          projectService.listProjects[index];
+                      projectService.selectedProject = projectService.listProjects[index];
                       Navigator.pushNamed(context, Routes.PROJECT);
                     },
                     child: ProjectCard(
