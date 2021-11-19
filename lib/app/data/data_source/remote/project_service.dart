@@ -35,7 +35,7 @@ class ProjectService extends ChangeNotifier {
     final url = Uri.https(_baseUrl, '/project.json');
     final resp = await http.get(url);
     final Map<String, dynamic> projectMap = json.decode(resp.body);
-    print(projectMap);
+    //print(projectMap);
 
     projectMap.forEach((key, value) {
       final tempProjects = Projects.fromMap(value);
@@ -95,11 +95,10 @@ class ProjectService extends ChangeNotifier {
       }
     });
 
-    print(listProjects);
     isLoading = false;
     notifyListeners();
 
-    print(listProjects);
+    //print(listProjects);
     return listProjects;
   }
 }

@@ -225,10 +225,6 @@ class ProjectPage extends StatelessWidget {
               ],
             ),
             actions: <Widget>[
-              // TextButton(
-              //     onPressed: () => Navigator.of(context).pop(),
-              //     child:
-              //         Text('Cancelar', style: TextStyle(color: Colors.black))),
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();

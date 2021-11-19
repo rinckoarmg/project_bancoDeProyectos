@@ -74,7 +74,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
         ]),
       ),
       floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.save)),
+          FloatingActionButton(onPressed: () => _mostrarAlert(context), child: Icon(Icons.save)),
     );
   }
 
@@ -99,7 +99,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
           value: _opcionSeleccionada,
           items: getOpcionesDropdown(),
           onChanged: (opt) {
-            print(opt);
+            //print(opt);
             setState(() {
               _opcionSeleccionada = opt.toString();
             });
@@ -147,11 +147,38 @@ class _AddProjectPageState extends State<AddProjectPage> {
     );
   }
 
-  // Widget _imagen() {}
+  Widget _descripcion() {
+    var textStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Monserrat',
+      fontSize: 20,
+      color: Colors.purple[800],
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 20, right: 25, left: 25),
+          child: Text(
+            'Descripción',
+            textAlign: TextAlign.left,
+            style: textStyle,
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(
+              maxLines: 15,
+              minLines: 1,
+              textAlign: TextAlign.justify,
 
-  // Widget _pais() {}
-
-  // Widget _categoria() {}
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _web() {
     final textStyle = TextStyle(
@@ -161,6 +188,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
       color: Colors.purple[800],
     );
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.only(top: 20, right: 25, left: 25),
@@ -170,9 +198,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
             style: textStyle,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: TextField(),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(),
+          ),
         ),
       ],
     );
@@ -186,6 +216,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
       color: Colors.purple[800],
     );
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.only(top: 20, right: 25, left: 25),
@@ -195,9 +226,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
             style: textStyle,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: TextField(),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(),
+          ),
         ),
       ],
     );
@@ -211,6 +244,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
       color: Colors.purple[800],
     );
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.only(top: 20, right: 25, left: 25),
@@ -220,42 +254,61 @@ class _AddProjectPageState extends State<AddProjectPage> {
             style: textStyle,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: TextField(),
-        ),
-      ],
-    );
-  }
-
-  Widget _descripcion() {
-    var textStyle = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontFamily: 'Monserrat',
-      fontSize: 20,
-      color: Colors.purple[800],
-    );
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: 20, right: 25, left: 25),
-          child: Text(
-            'Descripción',
-            textAlign: TextAlign.left,
-            style: textStyle,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: TextField(
-            maxLines: 15,
-            minLines: 1,
-            textAlign: TextAlign.justify,
-
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(),
           ),
         ),
       ],
     );
   }
 
+  // Widget _imagen() {}
+
+  // Widget _pais() {}
+
+  // Widget _categoria() {}  
+
+  void _mostrarAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      //para cerrar la alerta haciendo click afuera:
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          title: Text('Confirmacion',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Monserrat',
+              fontSize: 22,
+              color: Colors.purple[800],
+            )
+          ),
+          content: Text('¿Estas seguro de crear este proyecto?', maxLines: 1,),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancelar', style: TextStyle(color: Colors.black))
+            ),
+            TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'Salvar', 
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Monserrat',
+                fontSize: 18,
+                color: Colors.purple[800],
+              ),
+            )
+            ),
+          ],
+
+        );
+      }
+    );  
+  }
 }
