@@ -30,42 +30,20 @@ class _AddProjectPageState extends State<AddProjectPage> {
 }
 
 class AddProjectBody extends StatefulWidget {
+  final ProjectService projectService;
+  
   const AddProjectBody({Key? key, required this.projectService})
       : super(key: key);
-
-  final ProjectService projectService;
-
+      
   @override
   _AddProjectBodyState createState() => _AddProjectBodyState();
 }
 
 class _AddProjectBodyState extends State<AddProjectBody> {
-  String _opcionSeleccionada = 'Seleccione una opción';
-  List<String> _categories = [
-    'Seleccione una opción',
-    'Fin de la Pobreza',
-    'Hambre Cero',
-    'Salud y Bienestar',
-    'Educación de Calidad',
-    'Igualdad de Género',
-    'Agua Limpia y Saneamiento',
-    'Energia Asequible y no Contaminante',
-    'Trabajo Decente y Crecimiento Económico',
-    'Industria, Innovación e Infraestructura',
-    'Reducción de las Desigualdades',
-    'Ciudades y Comunidades Sostenibles',
-    'Producción y Consumo Responsables',
-    'Acción por el Clima',
-    'Vida Submarina',
-    'Vida de Ecosistemas Terrestres',
-    'Paz, Justicia e Instituciones Sólidas',
-    'Alianzas para lograr los objetivos',
-  ];
   @override
   Widget build(BuildContext context) {
-    final projectService = Provider.of<ProjectService>(context);
-    final projectController = Provider.of<AddProjectController>(context);
-    final project = projectController.project;
+    final pService = Provider.of<AddProjectController>(context);
+    final projectCopied = pService.project;
 
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
@@ -87,44 +65,42 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                           blurRadius: 10,
                         )
                       ]),
-                  child: Form(
-                    key: projectController.formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10),
-                        Title(
-                            color: Colors.purple,
-                            child: Text(
-                              'Datos del Proyecto',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Monserrat',
-                                fontSize: 20,
-                                color: Colors.purple[800],
-                              ),
-                            )),
-                        _categoria(),
-                        _pais(projectService.selectedProject.copy()),
-                        _nombre(projectService.selectedProject.copy()),
-                        _descripcion(projectService.selectedProject.copy()),
-                        _telefono(projectService.selectedProject.copy()),
-                        _email(projectService.selectedProject.copy()),
-                        _web(projectService.selectedProject.copy()),
-                        _imagen(projectService.selectedProject.copy()),
-                        SizedBox(height: 30)
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 10),
+                      Title(
+                          color: Colors.purple,
+                          child: Text(
+                            'Datos del Proyecto',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Monserrat',
+                              fontSize: 20,
+                              color: Colors.purple[800],
+                            ),
+                          )),
+                      _categoria(),
+                      _pais(projectCopied.country),
+                      _nombre(projectCopied.name),
+                      _descripcion(projectCopied.decription),
+                      _telefono(projectCopied.contact),
+                      _email(projectCopied.email),
+                      _web(projectCopied.web),
+                      _imagen(projectCopied.image),
+                      SizedBox(height: 30)
+                    ],
                   )),
             )),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => _mostrarAlert(context), child: Icon(Icons.save)),
+          onPressed: () => {pService.isValidForm()}, child: Icon(Icons.save)),
     );
   }
 
   Widget _categoria() {
+    String _opcionSeleccionada = 'Seleccione una opción';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -147,7 +123,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             value: _opcionSeleccionada,
             items: getOpcionesDropdown(),
             onChanged: (opt) {
-              print(opt);
+              //print(opt);
               setState(() {
                 _opcionSeleccionada = opt.toString();
               });
@@ -160,7 +136,26 @@ class _AddProjectBodyState extends State<AddProjectBody> {
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
     List<DropdownMenuItem<String>> lista = [];
-
+    final List<String> _categories = [
+      'Seleccione una opción',
+      'Fin de la Pobreza',
+      'Hambre Cero',
+      'Salud y Bienestar',
+      'Educación de Calidad',
+      'Igualdad de Género',
+      'Agua Limpia y Saneamiento',
+      'Energia Asequible y no Contaminante',
+      'Trabajo Decente y Crecimiento Económico',
+      'Industria, Innovación e Infraestructura',
+      'Reducción de las Desigualdades',
+      'Ciudades y Comunidades Sostenibles',
+      'Producción y Consumo Responsables',
+      'Acción por el Clima',
+      'Vida Submarina',
+      'Vida de Ecosistemas Terrestres',
+      'Paz, Justicia e Instituciones Sólidas',
+      'Alianzas para lograr los objetivos',
+    ];
     _categories.forEach((i) {
       lista.add(DropdownMenuItem(
         child: Text(i),
@@ -170,7 +165,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     return lista;
   }
 
-  Widget _nombre(Projects projectCopy) {
+  Widget _nombre(String name) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -190,21 +185,14 @@ class _AddProjectBodyState extends State<AddProjectBody> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextFormField(
-              initialValue: projectCopy.name,
-              onChanged: (value) => projectCopy.name = value,
-              validator: (value) {
-                if (value == null || value.length < 1)
-                  return 'El nombre es obligatorio';
-              },
-            ),
+            child: TextFormField(initialValue: name),
           ),
         ),
       ],
     );
   }
 
-  Widget _descripcion(Projects projectCopy) {
+  Widget _descripcion(String decription) {
     var textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -226,12 +214,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
-              onChanged: (value) => projectCopy.decription = value,
-              validator: (value) {
-                if (value == null || value.length < 1)
-                  return 'La descripción es obligatoria';
-              },
-              initialValue: projectCopy.decription,
+              initialValue: decription,
               maxLines: 15,
               minLines: 1,
               textAlign: TextAlign.justify,
@@ -242,7 +225,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _telefono(Projects projectCopy) {
+  Widget _telefono(String contact) {
     var textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -264,12 +247,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
-              onChanged: (value) => projectCopy.contact = value,
-              validator: (value) {
-                if (value == null || value.length < 1)
-                  return 'El teléfono es obligatorio';
-              },
-              initialValue: projectCopy.contact,
+              initialValue: contact,
             ),
           ),
         ),
@@ -277,7 +255,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _email(Projects projectCopy) {
+  Widget _email(String? email) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -299,12 +277,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
-              onChanged: (value) => projectCopy.email = value,
-              validator: (value) {
-                if (value == null || value.length < 1)
-                  return 'El email es obligatorio';
-              },
-              initialValue: projectCopy.email,
+              initialValue: email,
             ),
           ),
         ),
@@ -312,7 +285,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _web(Projects projectCopy) {
+  Widget _web(String? web) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -334,8 +307,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
-              onChanged: (value) => projectCopy.web = value,
-              initialValue: projectCopy.web,
+              initialValue: web,
             ),
           ),
         ),
@@ -343,7 +315,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _pais(Projects projectCopy) {
+  Widget _pais(String? country) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -365,12 +337,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
-              onChanged: (value) => projectCopy.country = value,
-              validator: (value) {
-                if (value == null || value.length < 1)
-                  return 'El país es obligatorio';
-              },
-              initialValue: projectCopy.country,
+              initialValue: country,
             ),
           ),
         ),
@@ -378,7 +345,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _imagen(Projects projectCopy) {
+  Widget _imagen(String image) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -407,7 +374,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                   borderRadius: BorderRadius.circular(20),
                   child: FadeInImage(
                       placeholder: AssetImage('assets/no-image.png'),
-                      image: NetworkImage(projectCopy.image)),
+                      image: NetworkImage(image)),
                 ),
                 Padding(
                   padding:
@@ -441,7 +408,6 @@ class _AddProjectBodyState extends State<AddProjectBody> {
   }
 
   void _mostrarAlert(BuildContext context) {
-    final pc = Provider.of<AddProjectController>(context, listen: false);
     showDialog(
         context: context,
         //para cerrar la alerta haciendo click afuera:
@@ -468,9 +434,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                   child:
                       Text('Cancelar', style: TextStyle(color: Colors.black))),
               TextButton(
-                  onPressed: () {
-                    pc.isValidForm();
-                  },
+                  onPressed: () => Navigator.of(context).pop(),
                   child: Text(
                     'Salvar',
                     style: TextStyle(
