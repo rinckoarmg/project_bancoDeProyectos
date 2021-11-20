@@ -24,78 +24,78 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.5,
         leading: PopupMenuButton<int>(
-        icon: Icon(Icons.menu),
-        onSelected: (item) => onSelected(context, item),
-        itemBuilder: (context) => [
-          const PopupMenuItem(
-            value: 1,
-            child: Text('Fin de la pobreza'),
-          ),
-          const PopupMenuItem(
-            value: 2,
-            child: Text('Hambre cero'),
-          ),
-          const PopupMenuItem(
-            value: 3,
-            child: Text('Salud y bienestar'),
-          ),
-          const PopupMenuItem(
-            value: 4,
-            child: Text('Educación de calidad'),
-          ),
-          const PopupMenuItem(
-            value: 5,
-            child: Text('Igualdad de género'),
-          ),
-          const PopupMenuItem(
-            value: 6,
-            child: Text('Agua limpia y saneamiento'),
-          ),
-          const PopupMenuItem(
-            value: 7,
-            child: Text('Energía asequible y no contaminante'),
-          ),
-          const PopupMenuItem(
-            value: 8,
-            child: Text('Trabajo decente y crecimiento económico'),
-          ),
-          const PopupMenuItem(
-            value: 9,
-            child: Text('Industria, innovación e infraestructura'),
-          ),
-          const PopupMenuItem(
-            value: 10,
-            child: Text('Reducción de las desigualdades'),
-          ),
-          const PopupMenuItem(
-            value: 11,
-            child: Text('Ciudades y comunidades sostenibles'),
-          ),
-          const PopupMenuItem(
-            value: 12,
-            child: Text('Producción y consumo responsables'),
-          ),
-          const PopupMenuItem(
-            value: 13,
-            child: Text('Acción por el clima'),
-          ),
-          const PopupMenuItem(
-            value: 14,
-            child: Text('Vida submarina'),
-          ),
-          const PopupMenuItem(
-            value: 15,
-            child: Text('Vida de ecosistemas terrestres'),
-          ),
-          const PopupMenuItem(
-            value: 16,
-            child: Text('Paz, justicia e instituciones sólidas'),
-          ),
-          const PopupMenuItem(
-            value: 17,
-            child: Text('Alianzas para lograr los objetivos'),
-          ),
-        ]),
+            icon: Icon(Icons.menu),
+            onSelected: (item) => onSelected(context, item),
+            itemBuilder: (context) => [
+                  const PopupMenuItem(
+                    value: 1,
+                    child: Text('Fin de la pobreza'),
+                  ),
+                  const PopupMenuItem(
+                    value: 2,
+                    child: Text('Hambre cero'),
+                  ),
+                  const PopupMenuItem(
+                    value: 3,
+                    child: Text('Salud y bienestar'),
+                  ),
+                  const PopupMenuItem(
+                    value: 4,
+                    child: Text('Educación de calidad'),
+                  ),
+                  const PopupMenuItem(
+                    value: 5,
+                    child: Text('Igualdad de género'),
+                  ),
+                  const PopupMenuItem(
+                    value: 6,
+                    child: Text('Agua limpia y saneamiento'),
+                  ),
+                  const PopupMenuItem(
+                    value: 7,
+                    child: Text('Energía asequible y no contaminante'),
+                  ),
+                  const PopupMenuItem(
+                    value: 8,
+                    child: Text('Trabajo decente y crecimiento económico'),
+                  ),
+                  const PopupMenuItem(
+                    value: 9,
+                    child: Text('Industria, innovación e infraestructura'),
+                  ),
+                  const PopupMenuItem(
+                    value: 10,
+                    child: Text('Reducción de las desigualdades'),
+                  ),
+                  const PopupMenuItem(
+                    value: 11,
+                    child: Text('Ciudades y comunidades sostenibles'),
+                  ),
+                  const PopupMenuItem(
+                    value: 12,
+                    child: Text('Producción y consumo responsables'),
+                  ),
+                  const PopupMenuItem(
+                    value: 13,
+                    child: Text('Acción por el clima'),
+                  ),
+                  const PopupMenuItem(
+                    value: 14,
+                    child: Text('Vida submarina'),
+                  ),
+                  const PopupMenuItem(
+                    value: 15,
+                    child: Text('Vida de ecosistemas terrestres'),
+                  ),
+                  const PopupMenuItem(
+                    value: 16,
+                    child: Text('Paz, justicia e instituciones sólidas'),
+                  ),
+                  const PopupMenuItem(
+                    value: 17,
+                    child: Text('Alianzas para lograr los objetivos'),
+                  ),
+                ]),
         title: Text(
           'Banco de Proyectos',
           style: TextStyle(
@@ -109,36 +109,35 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: () async {
-            await meedu.Get.i.find<AuthenticationRepository>().signOut();
-            router.pushNamedAndRemoveUntil(Routes.LOGIN);
-            },
-            icon: Icon(Icons.exit_to_app)),
+              onPressed: () async {
+                await meedu.Get.i.find<AuthenticationRepository>().signOut();
+                router.pushNamedAndRemoveUntil(Routes.LOGIN);
+              },
+              icon: Icon(Icons.exit_to_app)),
         ],
       ),
-      
       body: Padding(
-        padding: EdgeInsets.only(bottom: 40),
-        child: ListView.builder(
-          itemCount: projectService.listProjects.length,
-          itemBuilder: (BuildContext context, int index) => GestureDetector(
-            onTap: () {
-              projectService.selectedProject = projectService.listProjects[index];
-              Navigator.pushNamed(context, Routes.PROJECT);
-            },
-            child: ProjectCard(
-              project: projectService.listProjects[index],
-            ),
-          ))),
-      
+          padding: EdgeInsets.only(bottom: 40),
+          child: ListView.builder(
+              itemCount: projectService.listProjects.length,
+              itemBuilder: (BuildContext context, int index) => GestureDetector(
+                    onTap: () {
+                      projectService.selectedProject =
+                          projectService.listProjects[index];
+                      Navigator.pushNamed(context, Routes.PROJECT);
+                    },
+                    child: ProjectCard(
+                      project: projectService.listProjects[index],
+                    ),
+                  ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           projectService.selectedProject = new Projects(
-            category: '',
-            contact: '',
-            decription: '',
-            image: '',
-            name: 'Proyecto Temporal');
+              category: '',
+              contact: '',
+              decription: '',
+              image: '',
+              name: 'Proyecto Temporal');
           Navigator.pushNamed(context, Routes.ADDPROJECT);
         },
         child: Icon(Icons.add),

@@ -54,8 +54,8 @@ class ProjectPage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 5),
                             child: Text(
                               projectService.selectedProject.decription,
                               textAlign: TextAlign.justify,
@@ -68,34 +68,38 @@ class ProjectPage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 20),
                             child: Row(
-                                children: [
-                                  FadeInImage(
-                                    height: 75,
-                                    placeholder: AssetImage('assets/jar-loading.gif'),
-                                    image: AssetImage(
-                                        'assets/${projectService.selectedProject.category}'),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text(
-                                        _textCategory(projectService.selectedProject.category),
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Monserrat',
-                                          fontSize: 20,
-                                          color: Colors.purple[800],
-                                        ),
-                                        maxLines: 3,
+                              children: [
+                                FadeInImage(
+                                  height: 75,
+                                  placeholder:
+                                      AssetImage('assets/jar-loading.gif'),
+                                  image: AssetImage(
+                                      'assets/${projectService.selectedProject.category}'),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text(
+                                      _textCategory(projectService
+                                          .selectedProject.category),
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Monserrat',
+                                        fontSize: 20,
+                                        color: Colors.purple[800],
                                       ),
+                                      maxLines: 3,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
+                          ),
                         ],
                       )),
                 ],
@@ -106,65 +110,80 @@ class ProjectPage extends StatelessWidget {
         children: <Widget>[
           SizedBox(width: 30),
           FloatingActionButton(
-            heroTag: 'btn1',
-            onPressed: () {
-              //projectService.selectedProject = projectService.listProjects[index];
-              Navigator.pushNamed(context, Routes.ADDPROJECT);
-            },
-            child: Icon(Icons.edit)),
+              heroTag: 'btn1',
+              onPressed: () {
+                projectService.selectedProject;
+                Navigator.pushNamed(context, Routes.ADDPROJECT);
+              },
+              child: Icon(Icons.edit)),
           Expanded(child: SizedBox()),
           FloatingActionButton(
-            heroTag: 'btn2',
-            onPressed: () => _viewContact(
-              context,
-              projectService.selectedProject.contact,
-              projectService.selectedProject.email,
-              projectService.selectedProject.web),
-            child: Icon(Icons.contact_mail)),
+              heroTag: 'btn2',
+              onPressed: () => _viewContact(
+                  context,
+                  projectService.selectedProject.contact,
+                  projectService.selectedProject.email,
+                  projectService.selectedProject.web),
+              child: Icon(Icons.contact_mail)),
         ],
       ),
     );
   }
 
-  String _textCategory(String string){
+  String _textCategory(String string) {
     if (string == 'sdg-es-01.png') {
-      return 'Fin de la Pobreza';      
-    } if (string == 'sdg-es-02.png') {
+      return 'Fin de la Pobreza';
+    }
+    if (string == 'sdg-es-02.png') {
       return 'Hambre Cero';
-    } if (string == 'sdg-es-03.png') {
+    }
+    if (string == 'sdg-es-03.png') {
       return 'Salud y Bienestar';
-    } if (string == 'sdg-es-04.png') {
+    }
+    if (string == 'sdg-es-04.png') {
       return 'Educación de Calidad';
-    } if (string == 'sdg-es-05.png') {
+    }
+    if (string == 'sdg-es-05.png') {
       return 'Igualdad de Género';
-    } if (string == 'sdg-es-06.png') {
+    }
+    if (string == 'sdg-es-06.png') {
       return 'Agua Limpia y Saneamiento';
-    } if (string == 'sdg-es-07.png') {
+    }
+    if (string == 'sdg-es-07.png') {
       return 'Energia Asequible y no Contaminante';
-    } if (string == 'sdg-es-08.png') {
+    }
+    if (string == 'sdg-es-08.png') {
       return 'Trabajo Decente y Crecimiento Económico';
-    } if (string == 'sdg-es-09.png') {
+    }
+    if (string == 'sdg-es-09.png') {
       return 'Industria, Innovación e Infraestructura';
-    } if (string == 'sdg-es-10.png') {
+    }
+    if (string == 'sdg-es-10.png') {
       return 'Reducción de las Desigualdades';
-    } if (string == 'sdg-es-11.png') {
+    }
+    if (string == 'sdg-es-11.png') {
       return 'Ciudades y Comunidades Sostenibles';
-    } if (string == 'sdg-es-12.png') {
+    }
+    if (string == 'sdg-es-12.png') {
       return 'Producción y Consumo Responsables';
-    } if (string == 'sdg-es-13.png') {
+    }
+    if (string == 'sdg-es-13.png') {
       return 'Acción por el Clima';
-    } if (string == 'sdg-es-14.png') {
+    }
+    if (string == 'sdg-es-14.png') {
       return 'Vida Submarina';
-    } if (string == 'sdg-es-15.png') {
+    }
+    if (string == 'sdg-es-15.png') {
       return 'Vida de Ecosistemas Terrestres';
-    } if (string == 'sdg-es-16.png') {
+    }
+    if (string == 'sdg-es-16.png') {
       return 'Paz, Justicia e Instituciones Sólidas';
-    } if (string == 'sdg-es-17.png') {
+    }
+    if (string == 'sdg-es-17.png') {
       return 'Alianzas para lograr los objetivos';
     } else {
       return 'La categoria NO existe!';
     }
-    
   }
 
   _viewContact(BuildContext context, String? tel, String? email, String? web) {
@@ -257,7 +276,6 @@ class ProjectPage extends StatelessWidget {
           );
         });
   }
-  
 }
 
 class _backgroungImage extends StatelessWidget {
