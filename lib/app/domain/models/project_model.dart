@@ -8,6 +8,7 @@ class Projects {
   Projects({
     required this.category,
     required this.contact,
+    this.country,
     required this.decription,
     required this.image,
     required this.name,
@@ -19,6 +20,7 @@ class Projects {
 
   String category;
   String contact;
+  String? country;
   String decription;
   String image;
   String name;
@@ -34,6 +36,7 @@ class Projects {
   factory Projects.fromMap(Map<String, dynamic> json) => Projects(
       category: json["category"],
       contact: json["contact"],
+      country: json["country"],
       decription: json["decription"],
       image: json["image"],
       name: json["name"],
@@ -44,6 +47,7 @@ class Projects {
   Map<String, dynamic> toMap() => {
         "category": category,
         "contact": contact,
+        "country": country,
         "decription": decription,
         "image": image,
         "name": name,
