@@ -40,9 +40,33 @@ class AddProjectBody extends StatefulWidget {
 }
 
 class _AddProjectBodyState extends State<AddProjectBody> {
+  String _opcionSeleccionada = 'Seleccione una opción';
+  List<String> _categories = [
+    'Seleccione una opción',
+    'Fin de la Pobreza',
+    'Hambre Cero',
+    'Salud y Bienestar',
+    'Educación de Calidad',
+    'Igualdad de Género',
+    'Agua Limpia y Saneamiento',
+    'Energia Asequible y no Contaminante',
+    'Trabajo Decente y Crecimiento Económico',
+    'Industria, Innovación e Infraestructura',
+    'Reducción de las Desigualdades',
+    'Ciudades y Comunidades Sostenibles',
+    'Producción y Consumo Responsables',
+    'Acción por el Clima',
+    'Vida Submarina',
+    'Vida de Ecosistemas Terrestres',
+    'Paz, Justicia e Instituciones Sólidas',
+    'Alianzas para lograr los objetivos',
+  ];
   @override
   Widget build(BuildContext context) {
     final projectService = Provider.of<ProjectService>(context);
+    final projectController = Provider.of<AddProjectController>(context);
+    final project = projectController.project;
+
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: SingleChildScrollView(
@@ -63,32 +87,35 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                           blurRadius: 10,
                         )
                       ]),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 10),
-                      Title(
-                          color: Colors.purple,
-                          child: Text(
-                            'Datos del Proyecto',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Monserrat',
-                              fontSize: 20,
-                              color: Colors.purple[800],
-                            ),
-                          )),
-                      _categoria(projectService.selectedProject.copy()),
-                      _pais(projectService.selectedProject.copy()),
-                      _nombre(projectService.selectedProject.copy()),
-                      _descripcion(projectService.selectedProject.copy()),
-                      _telefono(projectService.selectedProject.copy()),
-                      _email(projectService.selectedProject.copy()),
-                      _web(projectService.selectedProject.copy()),
-                      _imagen(projectService.selectedProject.copy()),
-                      SizedBox(height: 30)
-                    ],
+                  child: Form(
+                    key: projectController.formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10),
+                        Title(
+                            color: Colors.purple,
+                            child: Text(
+                              'Datos del Proyecto',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Monserrat',
+                                fontSize: 20,
+                                color: Colors.purple[800],
+                              ),
+                            )),
+                        _categoria(),
+                        _pais(projectService.selectedProject.copy()),
+                        _nombre(projectService.selectedProject.copy()),
+                        _descripcion(projectService.selectedProject.copy()),
+                        _telefono(projectService.selectedProject.copy()),
+                        _email(projectService.selectedProject.copy()),
+                        _web(projectService.selectedProject.copy()),
+                        _imagen(projectService.selectedProject.copy()),
+                        SizedBox(height: 30)
+                      ],
+                    ),
                   )),
             )),
       ),
@@ -97,8 +124,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _categoria(Projects projectCopy) {
-    String _opcionSeleccionada = 'Seleccione una opción';
+  Widget _categoria() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -121,7 +147,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             value: _opcionSeleccionada,
             items: getOpcionesDropdown(),
             onChanged: (opt) {
-              //print(opt);
+              print(opt);
               setState(() {
                 _opcionSeleccionada = opt.toString();
               });
@@ -134,26 +160,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
     List<DropdownMenuItem<String>> lista = [];
-    final List<String> _categories = [
-      'Seleccione una opción',
-      'Fin de la Pobreza',
-      'Hambre Cero',
-      'Salud y Bienestar',
-      'Educación de Calidad',
-      'Igualdad de Género',
-      'Agua Limpia y Saneamiento',
-      'Energia Asequible y no Contaminante',
-      'Trabajo Decente y Crecimiento Económico',
-      'Industria, Innovación e Infraestructura',
-      'Reducción de las Desigualdades',
-      'Ciudades y Comunidades Sostenibles',
-      'Producción y Consumo Responsables',
-      'Acción por el Clima',
-      'Vida Submarina',
-      'Vida de Ecosistemas Terrestres',
-      'Paz, Justicia e Instituciones Sólidas',
-      'Alianzas para lograr los objetivos',
-    ];
+
     _categories.forEach((i) {
       lista.add(DropdownMenuItem(
         child: Text(i),
@@ -183,7 +190,14 @@ class _AddProjectBodyState extends State<AddProjectBody> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextFormField(initialValue: projectCopy.name),
+            child: TextFormField(
+              initialValue: projectCopy.name,
+              onChanged: (value) => projectCopy.name = value,
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El nombre es obligatorio';
+              },
+            ),
           ),
         ),
       ],
@@ -212,6 +226,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
+              onChanged: (value) => projectCopy.decription = value,
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'La descripción es obligatoria';
+              },
               initialValue: projectCopy.decription,
               maxLines: 15,
               minLines: 1,
@@ -245,6 +264,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
+              onChanged: (value) => projectCopy.contact = value,
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El teléfono es obligatorio';
+              },
               initialValue: projectCopy.contact,
             ),
           ),
@@ -275,6 +299,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
+              onChanged: (value) => projectCopy.email = value,
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El email es obligatorio';
+              },
               initialValue: projectCopy.email,
             ),
           ),
@@ -305,6 +334,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
+              onChanged: (value) => projectCopy.web = value,
               initialValue: projectCopy.web,
             ),
           ),
@@ -335,6 +365,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
+              onChanged: (value) => projectCopy.country = value,
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El país es obligatorio';
+              },
               initialValue: projectCopy.country,
             ),
           ),
@@ -406,6 +441,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
   }
 
   void _mostrarAlert(BuildContext context) {
+    final pc = Provider.of<AddProjectController>(context, listen: false);
     showDialog(
         context: context,
         //para cerrar la alerta haciendo click afuera:
@@ -432,7 +468,9 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                   child:
                       Text('Cancelar', style: TextStyle(color: Colors.black))),
               TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () {
+                    pc.isValidForm();
+                  },
                   child: Text(
                     'Salvar',
                     style: TextStyle(
