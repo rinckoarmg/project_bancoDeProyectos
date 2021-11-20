@@ -102,6 +102,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
           onPressed: () async {
             if (!pService.isValidForm()) return;
             widget.projectService.saveProject(pService.project);
+            Navigator.of(context).pop();
           },
           child: Icon(Icons.save)),
     );
