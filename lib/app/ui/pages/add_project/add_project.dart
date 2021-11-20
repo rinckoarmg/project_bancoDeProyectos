@@ -42,53 +42,54 @@ class _AddProjectPageState extends State<AddProjectPage> {
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: SingleChildScrollView(
-        child: Stack(children: [
-          Container(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 80),
-                child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 7.5),
-                            blurRadius: 10,
-                          )
-                        ]),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10),
-                        Title(
-                            color: Colors.purple,
-                            child: Text(
-                              'Ingresa tu Proyecto',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Monserrat',
-                                fontSize: 20,
-                                color: Colors.purple[800],
-                              ),
-                            )),
-                        _categoria(),
-                        _pais(),
-                        _nombre(),
-                        _descripcion(),
-                        _telefono(),
-                        _email(),
-                        _web(),
-                        _imagen(),
-                        SizedBox(height: 30)
-                      ],
-                    )),
-              )),
-        ]),
+        child: Container(
+        alignment: Alignment.center,
+          child: Padding(
+            padding: EdgeInsets.only(left: 20, right: 20, bottom: 80),
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(0, 7.5),
+                      blurRadius: 10,
+                    )
+                  ]
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 10),
+                  Title(
+                      color: Colors.purple,
+                      child: Text(
+                        'Crea tu Proyecto',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Monserrat',
+                          fontSize: 20,
+                          color: Colors.purple[800],
+                        ),
+                      )),
+                  _categoria(),
+                  _pais(),
+                  _nombre(),
+                  _descripcion(),
+                  _telefono(),
+                  _email(),
+                  _web(),
+                  _imagen(),
+                  SizedBox(height: 30)
+                ],
+              )
+            ),
+          )
+        ),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _mostrarAlert(context), child: Icon(Icons.save)),
@@ -100,7 +101,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 20, left: 25, right: 25),
           child: Text(
             'Categoria:',
             style: TextStyle(
@@ -111,15 +112,19 @@ class _AddProjectPageState extends State<AddProjectPage> {
             ),
           ),
         ),
-        DropdownButton(
-          value: _opcionSeleccionada,
-          items: getOpcionesDropdown(),
-          onChanged: (opt) {
-            //print(opt);
-            setState(() {
-              _opcionSeleccionada = opt.toString();
-            });
-          },
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25),
+          child: DropdownButton(
+            isExpanded: true,
+            value: _opcionSeleccionada,
+            items: getOpcionesDropdown(),
+            onChanged: (opt) {
+              //print(opt);
+              setState(() {
+                _opcionSeleccionada = opt.toString();
+              });
+            },
+          ),
         ),
       ],
     );
@@ -156,7 +161,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: 'Nombre del proyecto',
+            ),
           ),
         ),
       ],
@@ -184,7 +191,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(
+            child: TextFormField(
+              initialValue: 'Descipción del proyecto',
               maxLines: 15,
               minLines: 1,
               textAlign: TextAlign.justify,
@@ -216,7 +224,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: 'Telefono',
+            ),
           ),
         ),
       ],
@@ -244,7 +254,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: 'Email',
+            ),
           ),
         ),
       ],
@@ -272,7 +284,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: 'WEB del proyecto',
+            ),
           ),
         ),
       ],
@@ -300,7 +314,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: 'Pais del proyecto',
+            ),
           ),
         ),
       ],
