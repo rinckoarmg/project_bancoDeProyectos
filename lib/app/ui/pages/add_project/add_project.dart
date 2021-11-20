@@ -31,10 +31,10 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
 class AddProjectBody extends StatefulWidget {
   final ProjectService projectService;
-  
+
   const AddProjectBody({Key? key, required this.projectService})
       : super(key: key);
-      
+
   @override
   _AddProjectBodyState createState() => _AddProjectBodyState();
 }
@@ -44,6 +44,8 @@ class _AddProjectBodyState extends State<AddProjectBody> {
   Widget build(BuildContext context) {
     final pService = Provider.of<AddProjectController>(context);
     final projectCopied = pService.project;
+    final ProjectService projectService;
+    widget.projectService;
 
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
@@ -65,37 +67,44 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                           blurRadius: 10,
                         )
                       ]),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 10),
-                      Title(
-                          color: Colors.purple,
-                          child: Text(
-                            'Datos del Proyecto',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Monserrat',
-                              fontSize: 20,
-                              color: Colors.purple[800],
-                            ),
-                          )),
-                      _categoria(),
-                      _pais(projectCopied.country),
-                      _nombre(projectCopied.name),
-                      _descripcion(projectCopied.decription),
-                      _telefono(projectCopied.contact),
-                      _email(projectCopied.email),
-                      _web(projectCopied.web),
-                      _imagen(projectCopied.image),
-                      SizedBox(height: 30)
-                    ],
+                  child: Form(
+                    key: pService.formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 10),
+                        Title(
+                            color: Colors.purple,
+                            child: Text(
+                              'Datos del Proyecto',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Monserrat',
+                                fontSize: 20,
+                                color: Colors.purple[800],
+                              ),
+                            )),
+                        _categoria(),
+                        _pais(projectCopied.country, pService),
+                        _nombre(projectCopied.name, pService),
+                        _descripcion(projectCopied.decription, pService),
+                        _telefono(projectCopied.contact, pService),
+                        _email(projectCopied.email, pService),
+                        _web(projectCopied.web, pService),
+                        _imagen(projectCopied.image),
+                        SizedBox(height: 30)
+                      ],
+                    ),
                   )),
             )),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => {pService.isValidForm()}, child: Icon(Icons.save)),
+          onPressed: () async {
+            if (!pService.isValidForm()) return;
+            //projectService.saveProject(pService.project);
+          },
+          child: Icon(Icons.save)),
     );
   }
 
@@ -165,7 +174,10 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     return lista;
   }
 
-  Widget _nombre(String name) {
+  Widget _nombre(
+    String name,
+    AddProjectController pService,
+  ) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -185,14 +197,21 @@ class _AddProjectBodyState extends State<AddProjectBody> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextFormField(initialValue: name),
+            child: TextFormField(
+              initialValue: name,
+              onChanged: (value) => pService.updateData(value, 1),
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El nombre es obligatorio';
+              },
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _descripcion(String decription) {
+  Widget _descripcion(String decription, AddProjectController pService) {
     var textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -215,6 +234,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
               initialValue: decription,
+              onChanged: (value) => pService.updateData(value, 4),
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'La descripción es obligatoria';
+              },
               maxLines: 15,
               minLines: 1,
               textAlign: TextAlign.justify,
@@ -225,7 +249,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _telefono(String contact) {
+  Widget _telefono(String contact, AddProjectController pService) {
     var textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -248,6 +272,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
               initialValue: contact,
+              onChanged: (value) => pService.updateData(value, 2),
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El teléfono es obligatorio';
+              },
             ),
           ),
         ),
@@ -255,7 +284,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _email(String? email) {
+  Widget _email(String? email, AddProjectController pService) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -278,6 +307,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
               initialValue: email,
+              onChanged: (value) => pService.updateData(value, 5),
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El email es obligatorio';
+              },
             ),
           ),
         ),
@@ -285,7 +319,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _web(String? web) {
+  Widget _web(String? web, AddProjectController pService) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -308,6 +342,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
               initialValue: web,
+              onChanged: (value) => pService.updateData(value, 6),
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'Ingresa una URL donde puedan encontrar más información';
+              },
             ),
           ),
         ),
@@ -315,7 +354,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _pais(String? country) {
+  Widget _pais(String? country, AddProjectController pService) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -338,6 +377,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: TextFormField(
               initialValue: country,
+              onChanged: (value) => pService.updateData(value, 3),
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El país es obligatorio';
+              },
             ),
           ),
         ),
