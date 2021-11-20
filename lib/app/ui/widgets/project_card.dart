@@ -30,11 +30,19 @@ class ProjectCard extends StatelessWidget {
           children: [
             _CardImage(project.image),
             _ProjectDetails(project.name),
+            
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: _TributeField(project.atribution)
+            ),
+
             Positioned(
               bottom: 5,
               right: 5,
               child: _CategorieIcon(project.category)
-            )
+            ),
+            
           ],
           
         )
@@ -107,6 +115,39 @@ class _ProjectDetails extends StatelessWidget {
       ),
     );
   }
+}
+
+class _TributeField extends StatelessWidget {
+  const _TributeField(this.atribution);
+  final String? atribution;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: 80),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        height: 30,
+        decoration: BoxDecoration(
+          color: Colors.black12,
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),topRight: Radius.circular(20))
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '* ' + atribution!,
+              style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        )
+      ),
+    );
+  }
+  
 }
 
 class _CardImage extends StatelessWidget {
