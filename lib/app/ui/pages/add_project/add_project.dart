@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:movil181/app/data/data_source/remote/services.dart';
 import 'package:movil181/app/domain/models/project_model.dart';
 import 'package:movil181/app/ui/pages/add_project/add_project_controller.dart';
+import 'package:movil181/app/ui/pages/project/project_page.dart';
 
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +85,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                                 color: Colors.purple[800],
                               ),
                             )),
-                        _categoria(),
+                        _categoria(projectCopied.category, pService),
                         _pais(projectCopied.country, pService),
                         _nombre(projectCopied.name, pService),
                         _descripcion(projectCopied.decription, pService),
@@ -108,8 +109,10 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  Widget _categoria() {
-    String _opcionSeleccionada = 'Seleccione una opción';
+  Widget _categoria(String category, AddProjectController pService) {
+    ProjectPage projectPage = ProjectPage();
+    String _opcionSeleccionada = projectPage.textCategory(category);
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
