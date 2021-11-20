@@ -101,11 +101,60 @@ class FilterHome extends StatelessWidget {
                       project: listado[index],
                     ),
                   ))),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, Routes.ADDPROJECT),
-        child: Icon(Icons.add),
-        backgroundColor: Colors.purple,
+      floatingActionButton: Row(
+        children: [
+          SizedBox(width: 30),
+          FloatingActionButton(
+            onPressed: () {
+              _viewInfo(context);
+            },
+            child: Icon(Icons.info_outline_rounded),
+            backgroundColor: Colors.purple,
+          ),
+          Expanded(child: SizedBox()),
+          FloatingActionButton(
+            onPressed: () => Navigator.pushNamed(context, Routes.ADDPROJECT),
+            child: Icon(Icons.add),
+            backgroundColor: Colors.purple,
+          ),
+        ],
       ),
     );
   }
+
+  void _viewInfo(BuildContext context) {
+    showDialog(
+      context: context,
+      //para cerrar la alerta haciendo click afuera:
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          title: Text('Titulo'),
+          content: Column(
+            //Para que se adapte el largo al contenido que tiene:
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Este es el contenido de la caja de alerta'),
+              FlutterLogo(size: 100,),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancelar', style: TextStyle(color: Colors.black))
+            ),
+            TextButton(
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+            child: Text('Ok', style: TextStyle(color: Colors.black))
+            ),
+          ],
+
+        );
+      }
+    );  
+  }
+
 }

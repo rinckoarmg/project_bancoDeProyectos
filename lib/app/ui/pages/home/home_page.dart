@@ -125,8 +125,7 @@ class HomePage extends StatelessWidget {
           itemCount: projectService.listProjects.length,
           itemBuilder: (BuildContext context, int index) => GestureDetector(
             onTap: () {
-              projectService.selectedProject =
-                  projectService.listProjects[index];
+              projectService.selectedProject = projectService.listProjects[index];
               Navigator.pushNamed(context, Routes.PROJECT);
             },
             child: ProjectCard(
@@ -146,10 +145,6 @@ class HomePage extends StatelessWidget {
 void onSelected(BuildContext context, int item) {
   //final projectService = Provider.of<ProjectService>(context, listen: false);
   switch (item) {
-    // case 0:
-    //   Navigator.of(context)
-    //       .push(MaterialPageRoute(builder: (context) => FilterHome(lista: 0, name: '')));
-    //   break;
     case 1:
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>

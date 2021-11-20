@@ -255,6 +255,7 @@ class ProjectPage extends StatelessWidget {
           );
         });
   }
+  
 }
 
 class _backgroungImage extends StatelessWidget {
