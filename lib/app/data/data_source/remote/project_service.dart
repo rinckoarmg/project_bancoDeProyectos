@@ -26,6 +26,7 @@ class ProjectService extends ChangeNotifier {
 
   late Projects selectedProject;
   bool isLoading = true;
+  bool isSaving = false;
 
   ProjectService() {
     loadProjects();
@@ -100,5 +101,41 @@ class ProjectService extends ChangeNotifier {
 
     //print(listProjects);
     return listProjects;
+  }
+
+  Future saveProject(Projects project) async {
+    isSaving = true;
+    notifyListeners();
+
+    if (project.id == null) {
+    } else {
+      await this.updateProject(project);
+    }
+
+    isSaving = false;
+    notifyListeners();
+  }
+
+  Future<String> updateProject(Projects project) async {
+    final url = Uri.https(_baseUrl, '/project/${project.id}.json');
+    final resp = await http.put(url, body: project.toJson());
+    final decodeData = resp.body;
+
+    print(decodeData);
+
+    //TODO: actualizar listado
+
+    return project.id!;
+  }
+
+  Future<String> createProject(Projects project) async {
+    final url = Uri.https(_baseUrl, '/project.json');
+    final resp = await http.put(url, body: project.toJson());
+    final decodeData = json.decode(resp.body);
+
+    project.id = decodeData['name'];
+
+    this.listProjects.add(project);
+    return project.id!;
   }
 }
