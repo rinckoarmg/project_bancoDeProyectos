@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movil181/app/data/data_source/remote/services.dart';
+import 'package:movil181/app/domain/models/project_model.dart';
+import 'package:movil181/app/ui/pages/add_project/add_project_controller.dart';
 
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -14,93 +16,94 @@ class AddProjectPage extends StatefulWidget {
 
 class _AddProjectPageState extends State<AddProjectPage> {
   String _opcionSeleccionada = 'Fin de la Pobreza';
-  final List<String> _categories = [
-    'Fin de la Pobreza',
-    'Hambre Cero',
-    'Salud y Bienestar',
-    'Educación de Calidad',
-    'Igualdad de Género',
-    'Agua Limpia y Saneamiento',
-    'Energia Asequible y no Contaminante',
-    'Trabajo Decente y Crecimiento Económico',
-    'Industria, Innovación e Infraestructura',
-    'Reducción de las Desigualdades',
-    'Ciudades y Comunidades Sostenibles',
-    'Producción y Consumo Responsables',
-    'Acción por el Clima',
-    'Vida Submarina',
-    'Vida de Ecosistemas Terrestres',
-    'Paz, Justicia e Instituciones Sólidas',
-    'Alianzas para lograr los objetivos',
-  ];
+
   @override
   Widget build(BuildContext context) {
-
     final projectService = Provider.of<ProjectService>(context);
     final size = MediaQuery.of(context).size;
 
+    return ChangeNotifierProvider(
+      create: (_) => AddProjectController(projectService.selectedProject),
+      child: AddProjectBody(projectService: projectService),
+    );
+  }
+}
+
+class AddProjectBody extends StatefulWidget {
+  const AddProjectBody({Key? key, required this.projectService})
+      : super(key: key);
+
+  final ProjectService projectService;
+
+  @override
+  _AddProjectBodyState createState() => _AddProjectBodyState();
+}
+
+class _AddProjectBodyState extends State<AddProjectBody> {
+  @override
+  Widget build(BuildContext context) {
+    final projectService = Provider.of<ProjectService>(context);
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: SingleChildScrollView(
-        child: Stack(children: [
-          Container(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 80),
-                child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 7.5),
-                            blurRadius: 10,
-                          )
-                        ]),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10),
-                        Title(
-                            color: Colors.purple,
-                            child: Text(
-                              'Ingresa tu Proyecto',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Monserrat',
-                                fontSize: 20,
-                                color: Colors.purple[800],
-                              ),
-                            )),
-                        _categoria(),
-                        _pais(),
-                        _nombre(),
-                        _descripcion(),
-                        _telefono(),
-                        _email(),
-                        _web(),
-                        _imagen(),
-                        SizedBox(height: 30)
-                      ],
-                    )),
-              )),
-        ]),
+        child: Container(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 80),
+              child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          offset: Offset(0, 7.5),
+                          blurRadius: 10,
+                        )
+                      ]),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 10),
+                      Title(
+                          color: Colors.purple,
+                          child: Text(
+                            'Datos del Proyecto',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Monserrat',
+                              fontSize: 20,
+                              color: Colors.purple[800],
+                            ),
+                          )),
+                      _categoria(projectService.selectedProject.copy()),
+                      _pais(projectService.selectedProject.copy()),
+                      _nombre(projectService.selectedProject.copy()),
+                      _descripcion(projectService.selectedProject.copy()),
+                      _telefono(projectService.selectedProject.copy()),
+                      _email(projectService.selectedProject.copy()),
+                      _web(projectService.selectedProject.copy()),
+                      _imagen(projectService.selectedProject.copy()),
+                      SizedBox(height: 30)
+                    ],
+                  )),
+            )),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _mostrarAlert(context), child: Icon(Icons.save)),
     );
   }
 
-  Widget _categoria() {
+  Widget _categoria(Projects projectCopy) {
+    String _opcionSeleccionada = 'Seleccione una opción';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 20, left: 25, right: 25),
           child: Text(
             'Categoria:',
             style: TextStyle(
@@ -111,15 +114,19 @@ class _AddProjectPageState extends State<AddProjectPage> {
             ),
           ),
         ),
-        DropdownButton(
-          value: _opcionSeleccionada,
-          items: getOpcionesDropdown(),
-          onChanged: (opt) {
-            //print(opt);
-            setState(() {
-              _opcionSeleccionada = opt.toString();
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: DropdownButton(
+            isExpanded: true,
+            value: _opcionSeleccionada,
+            items: getOpcionesDropdown(),
+            onChanged: (opt) {
+              //print(opt);
+              setState(() {
+                _opcionSeleccionada = opt.toString();
+              });
+            },
+          ),
         ),
       ],
     );
@@ -127,6 +134,26 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
     List<DropdownMenuItem<String>> lista = [];
+    final List<String> _categories = [
+      'Seleccione una opción',
+      'Fin de la Pobreza',
+      'Hambre Cero',
+      'Salud y Bienestar',
+      'Educación de Calidad',
+      'Igualdad de Género',
+      'Agua Limpia y Saneamiento',
+      'Energia Asequible y no Contaminante',
+      'Trabajo Decente y Crecimiento Económico',
+      'Industria, Innovación e Infraestructura',
+      'Reducción de las Desigualdades',
+      'Ciudades y Comunidades Sostenibles',
+      'Producción y Consumo Responsables',
+      'Acción por el Clima',
+      'Vida Submarina',
+      'Vida de Ecosistemas Terrestres',
+      'Paz, Justicia e Instituciones Sólidas',
+      'Alianzas para lograr los objetivos',
+    ];
     _categories.forEach((i) {
       lista.add(DropdownMenuItem(
         child: Text(i),
@@ -136,7 +163,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
     return lista;
   }
 
-  Widget _nombre() {
+  Widget _nombre(Projects projectCopy) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -156,14 +183,14 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(initialValue: projectCopy.name),
           ),
         ),
       ],
     );
   }
 
-  Widget _descripcion() {
+  Widget _descripcion(Projects projectCopy) {
     var textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -184,7 +211,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(
+            child: TextFormField(
+              initialValue: projectCopy.decription,
               maxLines: 15,
               minLines: 1,
               textAlign: TextAlign.justify,
@@ -195,7 +223,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
     );
   }
 
-  Widget _telefono() {
+  Widget _telefono(Projects projectCopy) {
     var textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -216,14 +244,16 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: projectCopy.contact,
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _email() {
+  Widget _email(Projects projectCopy) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -244,14 +274,16 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: projectCopy.email,
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _web() {
+  Widget _web(Projects projectCopy) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -272,14 +304,16 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: projectCopy.web,
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _pais() {
+  Widget _pais(Projects projectCopy) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -300,14 +334,16 @@ class _AddProjectPageState extends State<AddProjectPage> {
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(),
+            child: TextFormField(
+              initialValue: projectCopy.country,
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _imagen() {
+  Widget _imagen(Projects projectCopy) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -326,7 +362,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
           ),
         ),
         SizedBox(
-          height: 150,
+          //height: 150,
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -336,11 +372,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   borderRadius: BorderRadius.circular(20),
                   child: FadeInImage(
                       placeholder: AssetImage('assets/no-image.png'),
-                      image: AssetImage('assets/no-image.png')),
+                      image: NetworkImage(projectCopy.image)),
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 33, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: IconButton(
                     //alignment: Alignment.topCenter,
                     icon: Icon(

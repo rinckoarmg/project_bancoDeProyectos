@@ -55,4 +55,17 @@ class Projects {
         "email": email,
         "user": user,
       };
+
+  Projects copy() => Projects(
+        id: this.id,
+        category: this.category,
+        contact: this.contact,
+        country: this.country,
+        decription: this.decription,
+        image: this.image,
+        name: this.name,
+        web: this.web,
+        email: this.email,
+        user: this.user,
+      );
 }

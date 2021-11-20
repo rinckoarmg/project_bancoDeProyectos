@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:movil181/app/domain/models/models.dart';
 
 class AddProjectController extends ChangeNotifier {
-
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
   Projects project;
-  
+
   //constructor:
-  AddProjectController(this.project);//es importante que el producto que se envie sea una copia.
+  AddProjectController(
+      this.project); //es importante que el proyecto que se envie sea una copia.
   /*
   updateAvailability(bool value) {
     print('IMPRESION EN CONSOLA del value: $value');
@@ -16,7 +16,7 @@ class AddProjectController extends ChangeNotifier {
     notifyListeners();
   }
   */
-  bool isValidForm(){
+  bool isValidForm() {
     print(project.name);
     print(project.category);
     print(project.contact);
@@ -28,5 +28,4 @@ class AddProjectController extends ChangeNotifier {
 
     return formKey.currentState?.validate() ?? false;
   }
-
 }
