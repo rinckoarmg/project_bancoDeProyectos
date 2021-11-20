@@ -45,7 +45,6 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     final pService = Provider.of<AddProjectController>(context);
     final projectCopied = pService.project;
     final ProjectService projectService;
-    widget.projectService;
 
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
@@ -102,7 +101,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
             if (!pService.isValidForm()) return;
-            //projectService.saveProject(pService.project);
+            widget.projectService.saveProject(pService.project);
           },
           child: Icon(Icons.save)),
     );
