@@ -14,6 +14,7 @@ class Projects {
     this.web,
     this.id,
     this.email,
+    this.user,
   });
 
   String category;
@@ -24,6 +25,7 @@ class Projects {
   String? web;
   String? id;
   String? email;
+  String? user;
 
   factory Projects.fromJson(String str) => Projects.fromMap(json.decode(str));
 
@@ -36,7 +38,8 @@ class Projects {
       image: json["image"],
       name: json["name"],
       web: json["web"],
-      email: json["email"]);
+      email: json["email"],
+      user: json["user"]);
 
   Map<String, dynamic> toMap() => {
         "category": category,
@@ -46,5 +49,6 @@ class Projects {
         "name": name,
         "web": web,
         "email": email,
+        "user": user,
       };
 }
