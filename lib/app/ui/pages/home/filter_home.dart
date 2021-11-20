@@ -86,6 +86,7 @@ class FilterHome extends StatelessWidget {
             color: Colors.deepPurple,
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.white,
       ),
       body: Padding(
@@ -102,9 +103,10 @@ class FilterHome extends StatelessWidget {
                     ),
                   ))),
       floatingActionButton: Row(
-        children: [
+        children: <Widget>[
           SizedBox(width: 30),
           FloatingActionButton(
+            heroTag: 'btn1',
             onPressed: () {
               _viewInfo(context);
             },
@@ -113,6 +115,7 @@ class FilterHome extends StatelessWidget {
           ),
           Expanded(child: SizedBox()),
           FloatingActionButton(
+            heroTag: 'btn2',
             onPressed: () => Navigator.pushNamed(context, Routes.ADDPROJECT),
             child: Icon(Icons.add),
             backgroundColor: Colors.purple,

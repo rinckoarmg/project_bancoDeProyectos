@@ -96,18 +96,16 @@ class HomePage extends StatelessWidget {
             child: Text('Alianzas para lograr los objetivos'),
           ),
         ]),
-        title: Center(
-          child: Text(
-            'Banco de Proyectos',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Monserrat',
-              fontSize: 18,
-              color: Colors.deepPurple,
-            ),
+        title: Text(
+          'Banco de Proyectos',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Monserrat',
+            fontSize: 18,
+            color: Colors.deepPurple,
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.white,
         actions: [
           IconButton(

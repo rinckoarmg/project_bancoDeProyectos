@@ -103,9 +103,10 @@ class ProjectPage extends StatelessWidget {
             )),
       ]),
       floatingActionButton: Row(
-        children: [
+        children: <Widget>[
           SizedBox(width: 30),
           FloatingActionButton(
+            heroTag: 'btn1',
             onPressed: () {
               //projectService.selectedProject = projectService.listProjects[index];
               Navigator.pushNamed(context, Routes.ADDPROJECT);
@@ -113,6 +114,7 @@ class ProjectPage extends StatelessWidget {
             child: Icon(Icons.edit)),
           Expanded(child: SizedBox()),
           FloatingActionButton(
+            heroTag: 'btn2',
             onPressed: () => _viewContact(
               context,
               projectService.selectedProject.contact,
