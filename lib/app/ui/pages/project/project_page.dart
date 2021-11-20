@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil181/app/data/data_source/remote/project_service.dart';
+import 'package:movil181/app/ui/routes/routes.dart';
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -101,13 +102,25 @@ class ProjectPage extends StatelessWidget {
               ),
             )),
       ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _viewContact(
-          context,
-          projectService.selectedProject.contact,
-          projectService.selectedProject.email,
-          projectService.selectedProject.web),
-        child: Icon(Icons.contact_mail)),
+      floatingActionButton: Row(
+        children: [
+          SizedBox(width: 30),
+          FloatingActionButton(
+            onPressed: () {
+              //projectService.selectedProject = projectService.listProjects[index];
+              Navigator.pushNamed(context, Routes.ADDPROJECT);
+            },
+            child: Icon(Icons.edit)),
+          Expanded(child: SizedBox()),
+          FloatingActionButton(
+            onPressed: () => _viewContact(
+              context,
+              projectService.selectedProject.contact,
+              projectService.selectedProject.email,
+              projectService.selectedProject.web),
+            child: Icon(Icons.contact_mail)),
+        ],
+      ),
     );
   }
 

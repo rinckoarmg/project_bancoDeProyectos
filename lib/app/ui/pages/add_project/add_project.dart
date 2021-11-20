@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:movil181/app/data/data_source/remote/services.dart';
 
 import 'package:movil181/app/ui/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class AddProjectPage extends StatefulWidget {
   const AddProjectPage({Key? key}) : super(key: key);
@@ -33,6 +35,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
   ];
   @override
   Widget build(BuildContext context) {
+
+    final projectService = Provider.of<ProjectService>(context);
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -364,41 +368,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
       ],
     );
   }
-
-  // Widget _imagen() {
-  //   final textStyle = TextStyle(
-  //     fontWeight: FontWeight.bold,
-  //     fontFamily: 'Monserrat',
-  //     fontSize: 20,
-  //     color: Colors.purple[800],
-  //   );
-  //   return Column(
-  //     //crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Padding(
-  //         padding: EdgeInsets.only(top: 20, right: 25, left: 25),
-  //         child: Text(
-  //           'Imagen',
-  //           textAlign: TextAlign.left,
-  //           style: textStyle,
-  //         ),
-  //       ),
-  //       Padding(
-  //         padding: const EdgeInsets.all(80),
-  //         child: IconButton(
-  //           alignment: Alignment.center,
-  //           icon: Icon(
-  //             Icons.upload,
-  //             size: 50,
-  //             color: Colors.deepPurple,
-  //           ),
-  //           onPressed: () {},
-  //         ),
-  //       )
-  //       //SizedBox(height: 10),
-  //     ],
-  //   );
-  // }
 
   void _mostrarAlert(BuildContext context) {
     showDialog(
