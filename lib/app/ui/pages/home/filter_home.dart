@@ -118,7 +118,7 @@ class FilterHome extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: 'Monserrat',
-            fontSize: 18,
+            fontSize: 25,
             color: Colors.deepPurple,
           ),
         ),
