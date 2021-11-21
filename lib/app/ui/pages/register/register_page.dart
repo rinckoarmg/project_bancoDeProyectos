@@ -26,7 +26,7 @@ class RegisterPage extends StatelessWidget {
           children: [
             SingleChildScrollView(
               //controller: controller,
-              padding: EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               child: Column(
                 children: <Widget>[
                   Column(
