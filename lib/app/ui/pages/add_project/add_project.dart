@@ -16,8 +16,6 @@ class AddProjectPage extends StatefulWidget {
 }
 
 class _AddProjectPageState extends State<AddProjectPage> {
-  String _opcionSeleccionada = 'Fin de la Pobreza';
-
   @override
   Widget build(BuildContext context) {
     final projectService = Provider.of<ProjectService>(context);
@@ -112,7 +110,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
   Widget _categoria(String category, AddProjectController pService) {
     ProjectPage projectPage = ProjectPage();
     String _opcionSeleccionada = projectPage.textCategory(category);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -130,15 +128,16 @@ class _AddProjectBodyState extends State<AddProjectBody> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: DropdownButton(
+          child: DropdownButtonFormField(
             isExpanded: true,
             value: _opcionSeleccionada,
             items: getOpcionesDropdown(),
             onChanged: (opt) {
-              //print(opt);
+              print(opt);
               setState(() {
                 _opcionSeleccionada = opt.toString();
               });
+              (value) => pService.updateData(opt.toString(), 7);
             },
           ),
         ),
