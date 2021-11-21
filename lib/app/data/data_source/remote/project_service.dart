@@ -123,8 +123,6 @@ class ProjectService extends ChangeNotifier {
 
     print(decodeData);
 
-    //TODO: actualizar listado
-
     return project.id!;
   }
 

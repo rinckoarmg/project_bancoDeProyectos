@@ -133,11 +133,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           projectService.selectedProject = new Projects(
-              category: '',
-              contact: '',
-              decription: '',
-              image: '',
-              name: 'Proyecto Temporal');
+              category: '', contact: '', decription: '', image: '', name: '');
           Navigator.pushNamed(context, Routes.ADDPROJECT);
         },
         child: Icon(Icons.add),

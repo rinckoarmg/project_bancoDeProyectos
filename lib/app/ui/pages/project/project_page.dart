@@ -84,7 +84,7 @@ class ProjectPage extends StatelessWidget {
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 10),
                                     child: Text(
-                                      _textCategory(projectService
+                                      textCategory(projectService
                                           .selectedProject.category),
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
@@ -130,7 +130,7 @@ class ProjectPage extends StatelessWidget {
     );
   }
 
-  String _textCategory(String string) {
+  String textCategory(String string) {
     if (string == 'sdg-es-01.png') {
       return 'Fin de la Pobreza';
     }
