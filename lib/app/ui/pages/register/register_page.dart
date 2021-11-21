@@ -5,6 +5,7 @@ import 'package:movil181/app/ui/pages/register/controller/register_state.dart';
 import 'package:movil181/app/ui/pages/register/utils/send_register_form.dart';
 import 'package:movil181/app/ui/routes/routes.dart';
 import 'package:movil181/app/ui/widgets/form.dart';
+import 'package:movil181/app/ui/widgets/logo.dart';
 import 'package:movil181/app/utils/validator_form.dart';
 import 'package:flutter_meedu/router.dart' as router;
 
@@ -25,31 +26,28 @@ class RegisterPage extends StatelessWidget {
           children: [
             SingleChildScrollView(
               //controller: controller,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Center(
-                        child: FadeInImage(
-                          placeholder: AssetImage('assets/jar-loading.gif'),
-                          width: 180,
-                          image: AssetImage('assets/Imagen1C.png'),
-                        ),
+                      FadeInImage(
+                        placeholder: AssetImage('assets/jar-loading.gif'),
+                        width: 220,
+                        image: AssetImage('assets/ODS 17 Alianza para lograr los Objetivos-1.png')
                       ),
-                      SizedBox(height: 20),
                       Text(
                         "Registro",
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontFamily: 'Monserrat',
-                          fontSize: 28,
+                          fontSize: 25,
                           color: Colors.deepPurple,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 20),
                   ProviderListener<RegisterController>(
                     provider: registerProvider,
                     builder: (_, controller) {
@@ -71,7 +69,7 @@ class RegisterPage extends StatelessWidget {
                                     : "Correo invalido";
                               },
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 15),
                             FormRegister(
                               label: 'Nombre',
                               onChanged: controller.onNameChanged,
@@ -84,7 +82,7 @@ class RegisterPage extends StatelessWidget {
                                     : "Nombre invalido";
                               },
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 15),
                             FormRegister(
                               label: 'Contraseña',
                               onChanged: controller.onPasswordChanged,
@@ -97,7 +95,7 @@ class RegisterPage extends StatelessWidget {
                                 return "Contraseña invalida";
                               },
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 15),
                             Consumer(
                               builder: (_, ref, __) {
                                 final controller = ref.watch(
@@ -119,7 +117,7 @@ class RegisterPage extends StatelessWidget {
                                 );
                               },
                             ),
-                            SizedBox(height: 40),
+                            SizedBox(height: 15),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 50),
                               child: ElevatedButton(
@@ -135,6 +133,19 @@ class RegisterPage extends StatelessWidget {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold)),
                               ),
+                            ),
+                            SizedBox(height: 20),
+                            Column(
+                              children: [
+                                Logo().logo(),
+                                SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                  Icon(Icons.copyright),
+                                  Text('  Desarrollado por DevTeam 181.')
+                                ],)  
+                              ],
                             ),
                           ],
                         ),

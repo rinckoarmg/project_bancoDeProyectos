@@ -11,7 +11,7 @@ class Logo extends StatelessWidget {
   Widget logo() {
     return FadeInImage(
       placeholder: AssetImage('assets/jar-loading.gif'),
-      width: 180,
+      width: 40,
       image: AssetImage('assets/Imagen1.png'),
     );
   }

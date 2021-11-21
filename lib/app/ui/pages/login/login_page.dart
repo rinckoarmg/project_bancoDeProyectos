@@ -34,20 +34,24 @@ class LoginPage extends StatelessWidget {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Logo().logo(),
-                          SizedBox(height: 30),
+                          FadeInImage(
+                            placeholder: AssetImage('assets/jar-loading.gif'),
+                            width: 220,
+                            image: AssetImage('assets/ODS 17 Alianza para lograr los Objetivos-1.png')
+                          ),
+                          SizedBox(height: 20),
                           Text(
                             "Login",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                               fontFamily: 'Monserrat',
-                              fontSize: 28,
+                              fontSize: 25,
                               color: Colors.deepPurple,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20),
                       Form(
                         key: controller.formKey,
                         child: Column(
@@ -78,7 +82,7 @@ class LoginPage extends StatelessWidget {
                               isPassword: true,
                               icon: Icon(Icons.lock),
                             ),
-                            SizedBox(height: 40),
+                            SizedBox(height: 30),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 50),
                               child: ElevatedButton(
@@ -98,7 +102,7 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       Column(
                         children: [
                           TextButton(
@@ -112,6 +116,20 @@ class LoginPage extends StatelessWidget {
                             ),
                             onPressed: () => router.pushNamed(Routes.REGISTER),
                           ),
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                      Column(
+                        children: [
+                          Logo().logo(),
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                            Icon(Icons.copyright),
+                            Text('  Desarrollado por DevTeam 181.')
+                          ],)
+                          
                         ],
                       ),
                     ],
