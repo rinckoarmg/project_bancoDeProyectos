@@ -169,7 +169,7 @@ class HomePage extends StatelessWidget {
               category: 'sdg-es-07.png',
               contact: '',
               decription: '',
-              image: 'https://picsum.photos/200/300',
+              image: 'https://picsum.photos/400/300',
               name: '');
           Navigator.pushNamed(context, Routes.ADDPROJECT);
         },
