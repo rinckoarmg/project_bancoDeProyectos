@@ -96,14 +96,47 @@ class HomePage extends StatelessWidget {
                     child: Text('Alianzas para lograr los objetivos'),
                   ),
                 ]),
-        title: Text(
-          'Banco de Proyectos',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Monserrat',
-            fontSize: 18,
-            color: Colors.deepPurple,
-          ),
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'ODS -',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Monserrat',
+                fontSize: 25,
+                color: Colors.purple,
+              ),
+            ),
+            Text(
+              ' Por',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Monserrat',
+                fontSize: 25,
+                color: Colors.amber,
+              ),
+            ),
+            Text(
+              ' el',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Monserrat',
+                fontSize: 25,
+                color: Colors.indigo,
+              ),
+            ),
+            Text(
+              ' Cambio',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Monserrat',
+                fontSize: 25,
+                color: Colors.green,
+              ),
+            ),
+          ],
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -133,7 +166,11 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           projectService.selectedProject = new Projects(
-              category: '', contact: '', decription: '', image: '', name: '');
+              category: 'sdg-es-07.png',
+              contact: '',
+              decription: '',
+              image: 'https://picsum.photos/400/300',
+              name: '');
           Navigator.pushNamed(context, Routes.ADDPROJECT);
         },
         child: Icon(Icons.add),
