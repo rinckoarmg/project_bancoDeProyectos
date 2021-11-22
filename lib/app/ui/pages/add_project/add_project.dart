@@ -438,7 +438,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                     icon: Icon(
                       Icons.add_a_photo,
                       size: 50,
-                      color: Colors.deepPurple[100],
+                      color: Colors.deepPurple[200],
                     ),
                     onPressed: () async {
                       final ImagePicker picker = new ImagePicker();

@@ -169,7 +169,8 @@ class HomePage extends StatelessWidget {
               category: 'sdg-es-07.png',
               contact: '',
               decription: '',
-              image: 'https://picsum.photos/400/300',
+              image:
+                  'https://res.cloudinary.com/rinckoar/image/upload/v1637593321/ODS/logoODSxelcambio_lgfctx.png',
               name: '',
               atribution: 'autor');
           Navigator.pushNamed(context, Routes.ADDPROJECT);
