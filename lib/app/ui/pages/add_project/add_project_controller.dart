@@ -11,9 +11,10 @@ class AddProjectController extends ChangeNotifier {
       this.project); //es importante que el proyecto que se envie sea una copia.
 
   updateData(String value, int dato) {
-    print('IMPRESION EN CONSOLA del value: $value');
+    //print('IMPRESION EN CONSOLA del value: $value');
     switch (dato) {
       case 1:
+        //this.project.id = value + '1';
         this.project.name = value;
         break;
       case 2:
@@ -86,7 +87,7 @@ class AddProjectController extends ChangeNotifier {
         print(this.project.category);
         break;
       case 8:
-        this.project.name = value;
+        this.project.atribution = value;
         break;
 
       default:

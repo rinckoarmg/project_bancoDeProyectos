@@ -91,6 +91,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                         _email(projectCopied.email, pService),
                         _web(projectCopied.web, pService),
                         _imagen(projectCopied.image),
+                        _atribucion(projectCopied.atribution, pService),
                         SizedBox(height: 30)
                       ],
                     ),
@@ -100,7 +101,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
             if (!pService.isValidForm()) return;
-            widget.projectService.saveProject(pService.project);
+            await widget.projectService.saveProject(pService.project);
             Navigator.of(context).pop();
           },
           child: Icon(Icons.save)),
@@ -133,11 +134,11 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             value: _opcionSeleccionada,
             items: getOpcionesDropdown(),
             onChanged: (opt) {
-              print(opt);
               setState(() {
                 _opcionSeleccionada = opt.toString();
               });
-              (value) => pService.updateData(opt.toString(), 7);
+              value:
+              pService.updateData(opt.toString(), 7);
             },
           ),
         ),
@@ -446,6 +447,41 @@ class _AddProjectBodyState extends State<AddProjectBody> {
                   ),
                 ),
               ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _atribucion(String? atribution, AddProjectController pService) {
+    final textStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Monserrat',
+      fontSize: 20,
+      color: Colors.purple[800],
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 20, right: 25, left: 25),
+          child: Text(
+            'Autor de la imagen',
+            textAlign: TextAlign.left,
+            style: textStyle,
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextFormField(
+              initialValue: atribution,
+              onChanged: (value) => pService.updateData(value, 8),
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'Ingresa el autor de la imagen';
+              },
             ),
           ),
         ),
