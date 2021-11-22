@@ -84,7 +84,7 @@ class AddProjectController extends ChangeNotifier {
         if (value == 'Alianzas para lograr los objetivos') {
           this.project.category = 'sdg-es-17.png';
         }
-        print(this.project.category);
+        //print(this.project.category);
         break;
       case 8:
         this.project.atribution = value;
