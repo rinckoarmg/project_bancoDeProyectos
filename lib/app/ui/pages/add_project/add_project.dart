@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movil181/app/data/data_source/remote/services.dart';
 import 'package:movil181/app/domain/models/project_model.dart';
 import 'package:movil181/app/ui/pages/add_project/add_project_controller.dart';
 import 'package:movil181/app/ui/pages/project/project_page.dart';
+import 'package:movil181/app/ui/widgets/project_image.dart';
 
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -99,12 +102,21 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             )),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            if (!pService.isValidForm()) return;
-            await widget.projectService.saveProject(pService.project);
-            Navigator.of(context).pop();
-          },
-          child: Icon(Icons.save)),
+          onPressed: widget.projectService.isSaving
+              ? null
+              : () async {
+                  if (!pService.isValidForm()) return;
+                  final String? imageUrl =
+                      await widget.projectService.uploadPhoto();
+
+                  if (imageUrl != null) pService.project.image = imageUrl;
+
+                  await widget.projectService.saveProject(pService.project);
+                  Navigator.of(context).pop();
+                },
+          child: widget.projectService.isSaving
+              ? CircularProgressIndicator(color: Colors.white)
+              : Icon(Icons.save)),
     );
   }
 
@@ -417,32 +429,29 @@ class _AddProjectBodyState extends State<AddProjectBody> {
             padding: const EdgeInsets.all(20),
             child: Stack(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: FadeInImage(
-                      placeholder: AssetImage('assets/no-image.png'),
-                      image: NetworkImage(image)),
-                ),
+                ProjectImage(url: widget.projectService.selectedProject.image),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: IconButton(
                     //alignment: Alignment.topCenter,
                     icon: Icon(
-                      Icons.photo_camera_rounded,
+                      Icons.add_a_photo,
                       size: 50,
-                      color: Colors.deepPurple,
+                      color: Colors.deepPurple[100],
                     ),
                     onPressed: () async {
-                      final picker = new ImagePicker();
-                      final PickedFile? pickedFile = (await picker.pickImage(
-                          source: ImageSource.camera,
-                          imageQuality: 100)) as PickedFile?;
+                      final ImagePicker picker = new ImagePicker();
+                      final XFile? foto = await picker.pickImage(
+                          source: ImageSource.gallery, imageQuality: 100);
 
-                      if (pickedFile == null) {
+                      if (foto == null) {
                         print('No seleccionó nada');
                         return;
                       }
+                      //final File fotoPath = File(foto.path);
+                      print('La imagen es ${foto.path}');
+                      widget.projectService.updatePhoto(foto.path);
                     },
                   ),
                 ),

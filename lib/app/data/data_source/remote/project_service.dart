@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movil181/app/domain/models/models.dart';
@@ -25,6 +26,8 @@ class ProjectService extends ChangeNotifier {
   final List<Projects> list17 = [];
 
   late Projects selectedProject;
+
+  File? newPhoto;
   bool isLoading = true;
   bool isSaving = false;
 
@@ -140,5 +143,38 @@ class ProjectService extends ChangeNotifier {
 
     this.listProjects.add(project);
     return project.id!;
+  }
+
+  void updatePhoto(String path) {
+    selectedProject.image = path;
+    newPhoto = File.fromUri(Uri(path: path));
+    notifyListeners();
+  }
+
+  Future<String?> uploadPhoto() async {
+    if (newPhoto == null) return null;
+    isSaving = true;
+    notifyListeners();
+
+    final url = Uri.parse(
+        'https://api.cloudinary.com/v1_1/rinckoar/image/upload?upload_preset=odsxcambio');
+
+    final imageUploadRequest = http.MultipartRequest('POST', url);
+    final file = await http.MultipartFile.fromPath('file', newPhoto!.path);
+
+    imageUploadRequest.files.add(file);
+
+    final streamResponse = await imageUploadRequest.send();
+    final res = await http.Response.fromStream(streamResponse);
+
+    if (res.statusCode != 200 && res.statusCode != 201) {
+      print('error');
+      print(res.body);
+      return null;
+    }
+    newPhoto = null;
+
+    final decodeData = json.decode(res.body);
+    return decodeData['secure_url'];
   }
 }
