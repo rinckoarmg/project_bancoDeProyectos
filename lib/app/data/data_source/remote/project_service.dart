@@ -33,6 +33,8 @@ class ProjectService extends ChangeNotifier {
   }
 
   Future<List<Projects>> loadProjects() async {
+    isLoading = true;
+    notifyListeners();
     final url = Uri.https(_baseUrl, '/project.json');
     final resp = await http.get(url);
     final Map<String, dynamic> projectMap = json.decode(resp.body);
@@ -108,6 +110,7 @@ class ProjectService extends ChangeNotifier {
     notifyListeners();
 
     if (project.id == null) {
+      await createProject(project);
     } else {
       await this.updateProject(project);
     }
@@ -123,12 +126,14 @@ class ProjectService extends ChangeNotifier {
 
     print(decodeData);
 
+    final index = listProjects.indexWhere((i) => i.id == project.id);
+    listProjects[index] = project;
     return project.id!;
   }
 
   Future<String> createProject(Projects project) async {
     final url = Uri.https(_baseUrl, '/project.json');
-    final resp = await http.put(url, body: project.toJson());
+    final resp = await http.post(url, body: project.toJson());
     final decodeData = json.decode(resp.body);
 
     project.id = decodeData['name'];

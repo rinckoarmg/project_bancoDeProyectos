@@ -170,7 +170,8 @@ class HomePage extends StatelessWidget {
               contact: '',
               decription: '',
               image: 'https://picsum.photos/400/300',
-              name: '');
+              name: '',
+              atribution: 'autor');
           Navigator.pushNamed(context, Routes.ADDPROJECT);
         },
         child: Icon(Icons.add),
