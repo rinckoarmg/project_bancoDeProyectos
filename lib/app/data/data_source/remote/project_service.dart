@@ -75,7 +75,7 @@ class ProjectService extends ChangeNotifier {
       if (tempProjects.category == 'sdg-es-09.png') {
         list9.add(tempProjects);
       }
-      if (tempProjects.category == 'sdg-es-010.png') {
+      if (tempProjects.category == 'sdg-es-10.png') {
         list10.add(tempProjects);
       }
       if (tempProjects.category == 'sdg-es-11.png') {

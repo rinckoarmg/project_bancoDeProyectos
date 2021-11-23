@@ -24,76 +24,78 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.5,
         leading: PopupMenuButton<int>(
+          enableFeedback: true,
+          tooltip: 'Lista de categorias',
             icon: Icon(Icons.menu),
             onSelected: (item) => onSelected(context, item),
             itemBuilder: (context) => [
                   const PopupMenuItem(
                     value: 1,
-                    child: Text('Fin de la pobreza'),
+                    child: Text('1. Fin de la pobreza'),
                   ),
                   const PopupMenuItem(
                     value: 2,
-                    child: Text('Hambre cero'),
+                    child: Text('2. Hambre cero'),
                   ),
                   const PopupMenuItem(
                     value: 3,
-                    child: Text('Salud y bienestar'),
+                    child: Text('3. Salud y bienestar'),
                   ),
                   const PopupMenuItem(
                     value: 4,
-                    child: Text('Educación de calidad'),
+                    child: Text('4. Educación de calidad'),
                   ),
                   const PopupMenuItem(
                     value: 5,
-                    child: Text('Igualdad de género'),
+                    child: Text('5. Igualdad de género'),
                   ),
                   const PopupMenuItem(
                     value: 6,
-                    child: Text('Agua limpia y saneamiento'),
+                    child: Text('6. Agua limpia y saneamiento'),
                   ),
                   const PopupMenuItem(
                     value: 7,
-                    child: Text('Energía asequible y no contaminante'),
+                    child: Text('7. Energía asequible y no contaminante'),
                   ),
                   const PopupMenuItem(
                     value: 8,
-                    child: Text('Trabajo decente y crecimiento económico'),
+                    child: Text('8. Trabajo decente y crecimiento económico'),
                   ),
                   const PopupMenuItem(
                     value: 9,
-                    child: Text('Industria, innovación e infraestructura'),
+                    child: Text('9. Industria, innovación e infraestructura'),
                   ),
                   const PopupMenuItem(
                     value: 10,
-                    child: Text('Reducción de las desigualdades'),
+                    child: Text('10. Reducción de las desigualdades'),
                   ),
                   const PopupMenuItem(
                     value: 11,
-                    child: Text('Ciudades y comunidades sostenibles'),
+                    child: Text('11. Ciudades y comunidades sostenibles'),
                   ),
                   const PopupMenuItem(
                     value: 12,
-                    child: Text('Producción y consumo responsables'),
+                    child: Text('12. Producción y consumo responsables'),
                   ),
                   const PopupMenuItem(
                     value: 13,
-                    child: Text('Acción por el clima'),
+                    child: Text('13. Acción por el clima'),
                   ),
                   const PopupMenuItem(
                     value: 14,
-                    child: Text('Vida submarina'),
+                    child: Text('14. Vida submarina'),
                   ),
                   const PopupMenuItem(
                     value: 15,
-                    child: Text('Vida de ecosistemas terrestres'),
+                    child: Text('15. Vida de ecosistemas terrestres'),
                   ),
                   const PopupMenuItem(
                     value: 16,
-                    child: Text('Paz, justicia e instituciones sólidas'),
+                    child: Text('16. Paz, justicia e instituciones sólidas'),
                   ),
                   const PopupMenuItem(
                     value: 17,
-                    child: Text('Alianzas para lograr los objetivos'),
+                    child: Text('17. Alianzas para lograr los objetivos'),
                   ),
                 ]),
         title: Row(
@@ -142,6 +144,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
+            tooltip: 'Cerrar sesión',
               onPressed: () async {
                 await meedu.Get.i.find<AuthenticationRepository>().signOut();
                 router.pushNamedAndRemoveUntil(Routes.LOGIN);
