@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
     final projectService = Provider.of<ProjectService>(context);
     if (projectService.isLoading) return LoadingScreen();
     final List<Projects> lista = projectService.listProjects;
+    Listas tituloCategoria = Listas();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,75 +30,76 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.menu),
             onSelected: (item) => onSelected(context, item),
             itemBuilder: (context) => [
-                  const PopupMenuItem(
-                    value: 1,
-                    child: Text('1. Fin de la pobreza'),
-                  ),
-                  const PopupMenuItem(
-                    value: 2,
-                    child: Text('2. Hambre cero'),
-                  ),
-                  const PopupMenuItem(
-                    value: 3,
-                    child: Text('3. Salud y bienestar'),
-                  ),
-                  const PopupMenuItem(
-                    value: 4,
-                    child: Text('4. Educación de calidad'),
-                  ),
-                  const PopupMenuItem(
-                    value: 5,
-                    child: Text('5. Igualdad de género'),
-                  ),
-                  const PopupMenuItem(
-                    value: 6,
-                    child: Text('6. Agua limpia y saneamiento'),
-                  ),
-                  const PopupMenuItem(
-                    value: 7,
-                    child: Text('7. Energía asequible y no contaminante'),
-                  ),
-                  const PopupMenuItem(
-                    value: 8,
-                    child: Text('8. Trabajo decente y crecimiento económico'),
-                  ),
-                  const PopupMenuItem(
-                    value: 9,
-                    child: Text('9. Industria, innovación e infraestructura'),
-                  ),
-                  const PopupMenuItem(
-                    value: 10,
-                    child: Text('10. Reducción de las desigualdades'),
-                  ),
-                  const PopupMenuItem(
-                    value: 11,
-                    child: Text('11. Ciudades y comunidades sostenibles'),
-                  ),
-                  const PopupMenuItem(
-                    value: 12,
-                    child: Text('12. Producción y consumo responsables'),
-                  ),
-                  const PopupMenuItem(
-                    value: 13,
-                    child: Text('13. Acción por el clima'),
-                  ),
-                  const PopupMenuItem(
-                    value: 14,
-                    child: Text('14. Vida submarina'),
-                  ),
-                  const PopupMenuItem(
-                    value: 15,
-                    child: Text('15. Vida de ecosistemas terrestres'),
-                  ),
-                  const PopupMenuItem(
-                    value: 16,
-                    child: Text('16. Paz, justicia e instituciones sólidas'),
-                  ),
-                  const PopupMenuItem(
-                    value: 17,
-                    child: Text('17. Alianzas para lograr los objetivos'),
-                  ),
-                ]),
+              
+              PopupMenuItem(
+                value: 1,
+                child: Text('1. '+ tituloCategoria.listCategories()[0], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 2,
+                child: Text('2. '+ tituloCategoria.listCategories()[1], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 3,
+                child: Text('3. '+ tituloCategoria.listCategories()[2], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 4,
+                child: Text('4. '+ tituloCategoria.listCategories()[3], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 5,
+                child: Text('5. '+ tituloCategoria.listCategories()[4], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 6,
+                child: Text('6. '+ tituloCategoria.listCategories()[5], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 7,
+                child: Text('7. '+ tituloCategoria.listCategories()[6], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 8,
+                child: Text('8. '+ tituloCategoria.listCategories()[7], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 9,
+                child: Text('9. '+ tituloCategoria.listCategories()[8], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 10,
+                child: Text('10. '+ tituloCategoria.listCategories()[9], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 11,
+                child: Text('11. '+ tituloCategoria.listCategories()[10], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 12,
+                child: Text('12. '+ tituloCategoria.listCategories()[11], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 13,
+                child: Text('13. '+ tituloCategoria.listCategories()[12], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 14,
+                child: Text('14. '+ tituloCategoria.listCategories()[13], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 15,
+                child: Text('15. '+ tituloCategoria.listCategories()[14], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 16,
+                child: Text('16. '+ tituloCategoria.listCategories()[15], style: TextStyle(color: Colors.grey[700])),
+              ),
+              PopupMenuItem(
+                value: 17,
+                child: Text('17. '+ tituloCategoria.listCategories()[16], style: TextStyle(color: Colors.grey[700])),
+              ),
+            ]),
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -186,8 +188,15 @@ class HomePage extends StatelessWidget {
 }
 
 void onSelected(BuildContext context, int item) {
+  Listas tituloCategoria = Listas();
+  for (int y=0; y<tituloCategoria.listCategories(). length;y++) {
+    if (item == y+1) {
+      Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => FilterHome(lista: y+1, name: tituloCategoria.listCategories()[y])));
+    }
+  }
   //final projectService = Provider.of<ProjectService>(context, listen: false);
-  switch (item) {
+  /*switch (item) {
     case 1:
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
@@ -272,4 +281,5 @@ void onSelected(BuildContext context, int item) {
               lista: 17, name: 'Alianzas para lograr los objetivos')));
       break;
   }
+  */
 }

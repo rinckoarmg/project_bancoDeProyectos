@@ -3,10 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movil181/app/domain/models/models.dart';
+import 'package:movil181/app/ui/widgets/widgets.dart';
 
 class ProjectService extends ChangeNotifier {
   final String _baseUrl = 'ods-app-e4d91-default-rtdb.firebaseio.com';
+  final List listaGeneral = [
+    [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
+  ];
   final List<Projects> listProjects = [];
+  /*
   final List<Projects> list1 = [];
   final List<Projects> list2 = [];
   final List<Projects> list3 = [];
@@ -24,7 +29,8 @@ class ProjectService extends ChangeNotifier {
   final List<Projects> list15 = [];
   final List<Projects> list16 = [];
   final List<Projects> list17 = [];
-
+  */
+  
   late Projects selectedProject;
 
   File? newPhoto;
@@ -47,12 +53,19 @@ class ProjectService extends ChangeNotifier {
       final tempProjects = Projects.fromMap(value);
       tempProjects.id = key;
       listProjects.add(tempProjects);
+      Listas listas = Listas();
 
+      for (int i=0;i<listas.listIcons().length;i++) {
+        if (tempProjects.category == listas.listIcons()[i]) {
+        listaGeneral[i].add(tempProjects);
+        }
+      }
+
+      /*
       if (tempProjects.category == 'sdg-es-01.png') {
         list1.add(tempProjects);
-      }
-      if (tempProjects.category == 'sdg-es-02.png') {
-        list2.add(tempProjects);
+      } if (tempProjects.category == 'sdg-es-02.png') {
+        list1.add(tempProjects);
       }
       if (tempProjects.category == 'sdg-es-03.png') {
         list3.add(tempProjects);
@@ -99,6 +112,7 @@ class ProjectService extends ChangeNotifier {
       if (tempProjects.category == 'sdg-es-17.png') {
         list17.add(tempProjects);
       }
+      */
     });
 
     isLoading = false;

@@ -9,113 +9,129 @@ import 'package:provider/provider.dart';
 class FilterHome extends StatelessWidget {
   const FilterHome({Key? key, required this.lista, required this.name})
       : super(key: key);
+
   final int lista;
   final String name;
 
   @override
   Widget build(BuildContext context) {
+    final Listas listaIconos = Listas();
     final projectService = Provider.of<ProjectService>(context, listen: false);
     final textConverter = TextConverter();
-    var listado;
+    List listado =[];
     String icono = '';
     String texto = '';
     if (projectService.isLoading) return LoadingScreen();
-
+    
+    for (int i=0; i<listaIconos.listIcons().length; i++) {
+      if (lista == i+1) {
+        listado = projectService.listaGeneral[i];
+        icono = listaIconos.listIcons().elementAt(i);
+        texto = textConverter.infoCategory(icono);
+      } 
+    }
+    
+    /*
     switch (lista) {
       case 0:
         listado = projectService.listProjects;
         break;
       case 1:
-        listado = projectService.list1;
-        icono = 'sdg-es-01.png';
+        listado = projectService.listaGeneral[0];
+        icono = listaIconos.listIcons().elementAt(0);
         texto = textConverter.infoCategory(icono);
         break;
       case 2:
-        listado = projectService.list2;
-        icono = 'sdg-es-02.png';
+        listado = projectService.listaGeneral[1];
+        icono = listaIconos.listIcons().elementAt(1);
         texto = textConverter.infoCategory(icono);
         break;
       case 3:
-        listado = projectService.list3;
-        icono = 'sdg-es-03.png';
+        listado = projectService.listaGeneral[2];
+        icono = listaIconos.listIcons().elementAt(2);
         texto = textConverter.infoCategory(icono);
         break;
       case 4:
-        listado = projectService.list4;
-        icono = 'sdg-es-04.png';
+        listado = projectService.listaGeneral[3];
+        icono = listaIconos.listIcons().elementAt(3);
         texto = textConverter.infoCategory(icono);
         break;
       case 5:
-        listado = projectService.list5;
-        icono = 'sdg-es-05.png';
+        listado = projectService.listaGeneral[4];
+        icono = listaIconos.listIcons().elementAt(4);
         texto = textConverter.infoCategory(icono);
         break;
       case 6:
-        listado = projectService.list6;
-        icono = 'sdg-es-06.png';
+        listado = projectService.listaGeneral[5];
+        icono = listaIconos.listIcons().elementAt(5);
         texto = textConverter.infoCategory(icono);
         break;
       case 7:
-        listado = projectService.list7;
-        icono = 'sdg-es-07.png';
+        listado = projectService.listaGeneral[6];
+        icono = listaIconos.listIcons().elementAt(6);
         texto = textConverter.infoCategory(icono);
         break;
       case 8:
-        listado = projectService.list8;
-        icono = 'sdg-es-08.png';
+        listado = projectService.listaGeneral[7];
+        icono = listaIconos.listIcons().elementAt(7);
         texto = textConverter.infoCategory(icono);
         break;
       case 9:
-        listado = projectService.list9;
-        icono = 'sdg-es-09.png';
+        listado = projectService.listaGeneral[8];
+        icono = listaIconos.listIcons().elementAt(8);
         texto = textConverter.infoCategory(icono);
         break;
       case 10:
-        listado = projectService.list10;
-        icono = 'sdg-es-10.png';
+        listado = projectService.listaGeneral[9];
+        icono = listaIconos.listIcons().elementAt(9);
         texto = textConverter.infoCategory(icono);
         break;
       case 11:
-        listado = projectService.list11;
-        icono = 'sdg-es-11.png';
+        listado = projectService.listaGeneral[10];
+        icono = listaIconos.listIcons().elementAt(10);
         texto = textConverter.infoCategory(icono);
         break;
       case 12:
-        listado = projectService.list12;
-        icono = 'sdg-es-12.png';
+        listado = projectService.listaGeneral[11];
+        icono = listaIconos.listIcons().elementAt(11);
         texto = textConverter.infoCategory(icono);
         break;
       case 13:
-        listado = projectService.list13;
-        icono = 'sdg-es-13.png';
+        listado = projectService.listaGeneral[12];
+        icono = listaIconos.listIcons().elementAt(12);
         texto = textConverter.infoCategory(icono);
         break;
       case 14:
-        listado = projectService.list14;
-        icono = 'sdg-es-14.png';
+        listado = projectService.listaGeneral[13];
+        icono = listaIconos.listIcons().elementAt(13);
         texto = textConverter.infoCategory(icono);
         break;
       case 15:
-        listado = projectService.list15;
-        icono = 'sdg-es-15.png';
+        listado = projectService.listaGeneral[14];
+        icono = listaIconos.listIcons().elementAt(14);
         texto = textConverter.infoCategory(icono);
         break;
       case 16:
-        listado = projectService.list16;
-        icono = 'sdg-es-16.png';
+        listado = projectService.listaGeneral[15];
+        icono = listaIconos.listIcons().elementAt(15);
         texto = textConverter.infoCategory(icono);
         break;
       case 17:
-        listado = projectService.list17;
-        icono = 'sdg-es-17.png';
+        listado = projectService.listaGeneral[16];
+        icono = listaIconos.listIcons().elementAt(16);
         texto = textConverter.infoCategory(icono);
         break;
     }
+    */
 
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         title: Text(
           name,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: 'Monserrat',

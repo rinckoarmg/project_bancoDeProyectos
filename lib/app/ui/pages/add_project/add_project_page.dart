@@ -1,13 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movil181/app/data/data_source/remote/services.dart';
-import 'package:movil181/app/domain/models/project_model.dart';
 import 'package:movil181/app/ui/pages/add_project/add_project_controller.dart';
-import 'package:movil181/app/ui/pages/project/project_page.dart';
 import 'package:movil181/app/ui/widgets/project_image.dart';
-
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -159,28 +154,10 @@ class _AddProjectBodyState extends State<AddProjectBody> {
   }
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
+    final Listas _categories = Listas();
+    
     List<DropdownMenuItem<String>> lista = [];
-    final List<String> _categories = [
-      'Seleccione una opción',
-      'Fin de la Pobreza',
-      'Hambre Cero',
-      'Salud y Bienestar',
-      'Educación de Calidad',
-      'Igualdad de Género',
-      'Agua Limpia y Saneamiento',
-      'Energia Asequible y no Contaminante',
-      'Trabajo Decente y Crecimiento Económico',
-      'Industria, Innovación e Infraestructura',
-      'Reducción de las Desigualdades',
-      'Ciudades y Comunidades Sostenibles',
-      'Producción y Consumo Responsables',
-      'Acción por el Clima',
-      'Vida Submarina',
-      'Vida de Ecosistemas Terrestres',
-      'Paz, Justicia e Instituciones Sólidas',
-      'Alianzas para lograr los objetivos',
-    ];
-    _categories.forEach((i) {
+    _categories.listCategories().forEach((i) {
       lista.add(DropdownMenuItem(
         child: Text(i),
         value: i,
@@ -189,10 +166,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     return lista;
   }
 
-  Widget _nombre(
-    String name,
-    AddProjectController pService,
-  ) {
+  Widget _nombre(String name, AddProjectController pService) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -463,7 +437,7 @@ class _AddProjectBodyState extends State<AddProjectBody> {
     );
   }
 
-  _atribucion(String? atribution, AddProjectController pService) {
+  Widget _atribucion(String? atribution, AddProjectController pService) {
     final textStyle = TextStyle(
       fontWeight: FontWeight.bold,
       fontFamily: 'Monserrat',
@@ -497,46 +471,5 @@ class _AddProjectBodyState extends State<AddProjectBody> {
       ],
     );
   }
-
-  void _mostrarAlert(BuildContext context) {
-    showDialog(
-        context: context,
-        //para cerrar la alerta haciendo click afuera:
-        barrierDismissible: false,
-        builder: (context) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            title: Text('Confirmacion',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Monserrat',
-                  fontSize: 22,
-                  color: Colors.purple[800],
-                )),
-            content: Text(
-              '¿Estas seguro de crear este proyecto?',
-              maxLines: 2,
-            ),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child:
-                      Text('Cancelar', style: TextStyle(color: Colors.black))),
-              TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(
-                    'Salvar',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Monserrat',
-                      fontSize: 18,
-                      color: Colors.purple[800],
-                    ),
-                  )),
-            ],
-          );
-        });
-  }
+  
 }
