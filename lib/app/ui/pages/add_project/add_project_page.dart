@@ -121,8 +121,8 @@ class _AddProjectBodyState extends State<AddProjectBody> {
   }
 
   Widget _categoria(String category, AddProjectController pService) {
-    ProjectPage projectPage = ProjectPage();
-    String _opcionSeleccionada = projectPage.textCategory(category);
+    final textConverter = TextConverter();
+    String _opcionSeleccionada = textConverter.textCategory(category);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

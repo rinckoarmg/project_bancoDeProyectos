@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movil181/app/data/data_source/remote/project_service.dart';
+import 'package:movil181/app/ui/pages/home/filter_home_page.dart';
 import 'package:movil181/app/ui/routes/routes.dart';
+import 'package:movil181/app/ui/widgets/text_converter.dart';
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +11,9 @@ class ProjectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final projectService = Provider.of<ProjectService>(context);
-
+    final textConverter = TextConverter();
+    final viewInfo = ViewInfoCategory();
+    
     return Scaffold(
       appBar: AppBarGeneral().appBarG(),
       body: Stack(children: [
@@ -83,17 +87,24 @@ class ProjectPage extends StatelessWidget {
                                   child: Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 10),
-                                    child: Text(
-                                      textCategory(projectService
-                                          .selectedProject.category),
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Monserrat',
-                                        fontSize: 20,
-                                        color: Colors.purple[800],
+                                    child: TextButton(
+                                      onPressed: (){
+                                        //TODO: Hacer que el ontap lleve a la informacion de la categoria:
+                                        viewInfo.viewInfo(context, projectService.selectedProject.category, textConverter.infoCategory(projectService.selectedProject.category), textConverter.textCategory(projectService
+                                            .selectedProject.category),);
+                                      },
+                                      child: Text(
+                                        textConverter.textCategory(projectService
+                                            .selectedProject.category),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Monserrat',
+                                          fontSize: 20,
+                                          color: Colors.purple[800],
+                                        ),
+                                        maxLines: 3,
                                       ),
-                                      maxLines: 3,
                                     ),
                                   ),
                                 ),
@@ -128,62 +139,6 @@ class ProjectPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String textCategory(String string) {
-    if (string == 'sdg-es-01.png') {
-      return 'Fin de la Pobreza';
-    }
-    if (string == 'sdg-es-02.png') {
-      return 'Hambre Cero';
-    }
-    if (string == 'sdg-es-03.png') {
-      return 'Salud y Bienestar';
-    }
-    if (string == 'sdg-es-04.png') {
-      return 'Educación de Calidad';
-    }
-    if (string == 'sdg-es-05.png') {
-      return 'Igualdad de Género';
-    }
-    if (string == 'sdg-es-06.png') {
-      return 'Agua Limpia y Saneamiento';
-    }
-    if (string == 'sdg-es-07.png') {
-      return 'Energia Asequible y no Contaminante';
-    }
-    if (string == 'sdg-es-08.png') {
-      return 'Trabajo Decente y Crecimiento Económico';
-    }
-    if (string == 'sdg-es-09.png') {
-      return 'Industria, Innovación e Infraestructura';
-    }
-    if (string == 'sdg-es-10.png') {
-      return 'Reducción de las Desigualdades';
-    }
-    if (string == 'sdg-es-11.png') {
-      return 'Ciudades y Comunidades Sostenibles';
-    }
-    if (string == 'sdg-es-12.png') {
-      return 'Producción y Consumo Responsables';
-    }
-    if (string == 'sdg-es-13.png') {
-      return 'Acción por el Clima';
-    }
-    if (string == 'sdg-es-14.png') {
-      return 'Vida Submarina';
-    }
-    if (string == 'sdg-es-15.png') {
-      return 'Vida de Ecosistemas Terrestres';
-    }
-    if (string == 'sdg-es-16.png') {
-      return 'Paz, Justicia e Instituciones Sólidas';
-    }
-    if (string == 'sdg-es-17.png') {
-      return 'Alianzas para lograr los objetivos';
-    } else {
-      return 'La categoria NO existe!';
-    }
   }
 
   _viewContact(BuildContext context, String? tel, String? email, String? web) {
@@ -276,6 +231,7 @@ class ProjectPage extends StatelessWidget {
           );
         });
   }
+
 }
 
 class _backgroungImage extends StatelessWidget {

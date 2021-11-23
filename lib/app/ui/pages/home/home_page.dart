@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movil181/app/data/data_source/remote/services.dart';
 import 'package:movil181/app/domain/models/models.dart';
-import 'package:movil181/app/ui/pages/home/filter_home.dart';
-import 'package:movil181/app/ui/pages/loading_screen/loading_screen.dart';
+import 'package:movil181/app/ui/pages/home/filter_home_page.dart';
+import 'package:movil181/app/ui/pages/loading_screen/loading_screen_page.dart';
 import 'package:movil181/app/ui/routes/routes.dart';
 import 'package:movil181/app/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
