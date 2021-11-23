@@ -89,7 +89,6 @@ class ProjectPage extends StatelessWidget {
                                         EdgeInsets.symmetric(horizontal: 10),
                                     child: TextButton(
                                       onPressed: (){
-                                        //TODO: Hacer que el ontap lleve a la informacion de la categoria:
                                         viewInfo.viewInfo(context, projectService.selectedProject.category, textConverter.infoCategory(projectService.selectedProject.category), textConverter.textCategory(projectService
                                             .selectedProject.category),);
                                       },
@@ -100,10 +99,10 @@ class ProjectPage extends StatelessWidget {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'Monserrat',
-                                          fontSize: 20,
+                                          fontSize: 17,
                                           color: Colors.purple[800],
                                         ),
-                                        maxLines: 3,
+                                        maxLines: 2,
                                       ),
                                     ),
                                   ),
