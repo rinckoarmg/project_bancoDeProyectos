@@ -89,12 +89,13 @@ class ProjectPage extends StatelessWidget {
                                         EdgeInsets.symmetric(horizontal: 10),
                                     child: TextButton(
                                       onPressed: (){
-                                        viewInfo.viewInfo(context, projectService.selectedProject.category, textConverter.infoCategory(projectService.selectedProject.category), textConverter.textCategory(projectService
+                                        viewInfo.viewInfo(context, projectService.selectedProject.category, textConverter.infoCategory(projectService.selectedProject.category), textConverter.iconToCategory(projectService
                                             .selectedProject.category),);
                                       },
                                       child: Text(
-                                        textConverter.textCategory(projectService
-                                            .selectedProject.category),
+                                        //textConverter.textCategory(projectService.selectedProject.category),
+                                        textConverter.iconToCategory(projectService.selectedProject.category),
+                                        
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,

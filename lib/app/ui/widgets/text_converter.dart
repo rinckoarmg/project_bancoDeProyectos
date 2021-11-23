@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:movil181/app/ui/widgets/widgets.dart';
 
 class TextConverter extends StatelessWidget {
 
   @override
+  final Listas listas = Listas();
   Widget build(BuildContext context) {
     return Container();
+  }
+
+  String iconToCategory(String string) {
+    for (int i=0;i<listas.listIcons().length;i++) {
+      for (int y=0;y<listas.listCategories().length;y++) {
+        if (string == listas.listIcons()[i]) {
+        return listas.listCategories()[i];
+        }
+      }
+    }
+    return 'La categoria NO existe!';
+  }
+
+  String categoryToIcon(String string) {
+    for (int y=0;y<listas.listCategories().length;y++) {
+      for (int i=0;i<listas.listIcons().length;i++) {
+        if (string == listas.listCategories()[y]) {
+        return listas.listIcons()[y];
+        }
+      }
+    }
+    return 'La categoria NO existe!';
   }
 
   String textCategory(String string) {

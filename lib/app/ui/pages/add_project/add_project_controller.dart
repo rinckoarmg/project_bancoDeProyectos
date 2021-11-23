@@ -35,7 +35,7 @@ class AddProjectController extends ChangeNotifier {
         this.project.web = value;
         break;
       case 7:
-        this.project.category = textConverter.textIcon(value);
+        this.project.category = textConverter.categoryToIcon(value);
         break;
       case 8:
         this.project.atribution = value;
